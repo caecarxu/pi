@@ -379,6 +379,7 @@ export class Agent {
 	/** Start a new prompt from text, a single message, or a batch of messages. */
 	async prompt(message: AgentMessage | AgentMessage[]): Promise<void>;
 	async prompt(input: string, images?: ImageContent[]): Promise<void>;
+	// PI-READ：Agent 接收规范化消息并运行通用循环，不处理 CLI 或终端 UI。
 	async prompt(input: string | AgentMessage | AgentMessage[], images?: ImageContent[]): Promise<void> {
 		if (this.activeRun) {
 			throw new Error(

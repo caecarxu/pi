@@ -166,6 +166,7 @@ function createAgentStream(): EventStream<AgentEvent, AgentMessage[]> {
 	);
 }
 
+// PI-READ：内层循环处理工具调用与 steering；外层循环接续 follow-up 消息。
 /**
  * Main loop logic shared by agentLoop and agentLoopContinue.
  */
@@ -383,6 +384,7 @@ function withToolChanges(message: SystemMessage, { toolsAdded, toolsRemoved }: T
 	};
 }
 
+// PI-READ：这是消息到模型请求的边界，可在此追踪上下文转换与流式调用。
 /**
  * Stream an assistant response from the LLM.
  * This is where AgentMessage[] gets transformed to Message[] for the LLM.
@@ -512,6 +514,7 @@ async function failToolCallsFromTruncatedMessage(
 	return { messages, terminate: false };
 }
 
+// PI-READ：这是模型工具调用进入实际工具执行的分派边界。
 /**
  * Execute tool calls from an assistant message.
  */

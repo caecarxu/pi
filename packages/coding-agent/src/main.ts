@@ -602,6 +602,7 @@ export interface MainOptions {
 	extensionFactories?: InlineExtension[];
 }
 
+// PI-READ：运行时在这里汇总创建，随后分派到交互、RPC 或打印模式。
 export async function main(args: string[], options?: MainOptions) {
 	resetTimings();
 	// Commands and startup selectors can load user-authored themes before runtime creation.
@@ -662,6 +663,7 @@ export async function main(args: string[], options?: MainOptions) {
 		return;
 	}
 
+	// PI-READ：普通 CLI 请求在这里解析参数；auth、package、config、mcp 子命令已提前分流。
 	const parsed = parseArgs(args);
 	if (parsed.diagnostics.length > 0) {
 		for (const d of parsed.diagnostics) {
@@ -693,6 +695,7 @@ export async function main(args: string[], options?: MainOptions) {
 		process.exit(0);
 	}
 
+	// PI-READ：根据参数和 stdin/stdout 是否为 TTY 选择交互、打印、JSON 或 RPC 模式。
 	let appMode = resolveAppMode(parsed, process.stdin.isTTY, process.stdout.isTTY);
 	const shouldTakeOverStdout = appMode !== "interactive" && !isPlainRuntimeMetadataCommand(parsed);
 	if (shouldTakeOverStdout) {
@@ -735,6 +738,7 @@ export async function main(args: string[], options?: MainOptions) {
 		(parsed.sessionDir ? normalizePath(parsed.sessionDir) : undefined) ??
 		(envSessionDir ? expandTildePath(envSessionDir) : undefined) ??
 		startupSettingsManager.getSessionDir();
+	// PI-READ：按项目 cwd 与会话目录恢复、分叉或创建 SessionManager；后续上下文从这里进入运行时。
 	let sessionManager = await createSessionManager(parsed, cwd, sessionDir, startupSettingsManager);
 	const missingSessionCwdIssue = getMissingSessionCwdIssue(sessionManager, cwd);
 	if (missingSessionCwdIssue) {
@@ -794,6 +798,7 @@ export async function main(args: string[], options?: MainOptions) {
 			console.error(chalk.dim(event.message));
 		}
 	};
+	// PI-READ：把项目设置、信任状态、资源/扩展、模型和工具装配成 AgentSession 所需的服务。
 	const createRuntime: CreateAgentSessionRuntimeFactory = async ({
 		cwd,
 		agentDir,
@@ -973,6 +978,7 @@ export async function main(args: string[], options?: MainOptions) {
 		process.exit(0);
 	}
 
+	// PI-READ：管道输入会把 interactive 改为 print；RPC 保留 stdin 作为 JSON-RPC 命令流。
 	// Read piped stdin content (if any) - skip for RPC mode which uses stdin for JSON-RPC
 	let stdinContent: string | undefined;
 	if (appMode !== "rpc") {
@@ -1026,6 +1032,7 @@ export async function main(args: string[], options?: MainOptions) {
 			.finally(() => clearTimeout(timeout));
 	}
 
+	// PI-READ：前面的代码统一准备 runtime；从这里开始进入各模式的输入输出适配层。
 	if (appMode === "rpc") {
 		printTimings();
 		await runRpcMode(runtime);

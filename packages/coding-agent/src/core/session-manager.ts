@@ -542,6 +542,7 @@ export function projectContextEntry(entry: SessionEntry, edit: ContextEditEntry 
 	});
 }
 
+// PI-READ：模型上下文按活动叶子投影；JSONL 文件仍保留分支和原始条目。
 /** Build provenance-preserving, compaction-aware model context. */
 export function buildSessionProjection(
 	entries: SessionEntry[],

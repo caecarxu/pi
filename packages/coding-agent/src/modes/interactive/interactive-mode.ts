@@ -517,6 +517,7 @@ function getDroppedReasoning(message: AssistantMessage): DroppedReasoning | unde
 	return undefined;
 }
 
+// PI-READ：交互层呈现会话事件并收集输入；Agent 循环位于 packages/agent。
 export class InteractiveMode {
 	private runtimeHost: AgentSessionRuntime;
 	private renderer: TuiMainScreen | TuiAltScreen;
@@ -1235,6 +1236,7 @@ export class InteractiveMode {
 		}
 	}
 
+	// PI-READ：交互模式主入口；初始化界面、处理启动消息，并循环把用户输入交给 session.prompt()。
 	/**
 	 * Run the interactive mode. This is the main entry point.
 	 * Initializes the UI, shows warnings, processes initial messages, and starts the interactive loop.
