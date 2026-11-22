@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Added
+
+- Added a Simplified Chinese translation of the Agent Core README.
+
 ## [1.6.0] - 2026-11-20
 
 ### Fixed

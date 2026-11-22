@@ -2,7 +2,7 @@
 
 这份计划面向熟悉 TypeScript 和 Node.js、希望理解 Agent Harness 并能基于 Pi 做扩展的开发者。默认每周投入约 5–7 小时，六周完成；时间可以按自己的节奏拉长。Pi CLI 文档的完整简体中文译本见[中文文档索引](packages/coding-agent/docs/zh-CN/index.md)，各章节也可从下方阅读计划直接进入。
 
-学习顺序从最小请求循环开始，再进入 CLI 的会话与扩展机制，最后学习持久化运行时。Pi 仓库包含两条不同的应用路径：`pi-coding-agent` 使用 `pi-agent-core`；服务器应用路径使用 Chord 和 `pi-durable`。先学前者，再学后者，避免把两套状态与生命周期模型混为一谈。
+学习顺序从最小请求循环开始，再进入 CLI 的会话与扩展机制，最后学习持久化运行时。要区分三层职责：`pi-agent-core` 的 `Agent` 管理一次运行的状态、事件和工具循环；`pi-coding-agent` 的 `AgentSession` 把它编排成 Pi CLI，并由 `SessionManager` 管理 JSONL 会话树；`pi-durable` 则用 Chord 提供可提交、可恢复的服务器端 Agent 运行时。先学 CLI 路径，再学 Durable/Chord，避免把它们的状态和生命周期模型混为一谈。
 
 ## 学习目标
 
@@ -20,17 +20,18 @@
 
 **阅读：**
 
-- [根 README](README.md)：包清单、开发命令和项目定位。
+- [Pi CLI 中文文档索引](packages/coding-agent/docs/zh-CN/index.md)：安装、使用和扩展文档入口。
 - [Pi 如何工作](packages/coding-agent/docs/zh-CN/how-pi-works.md)：Agent loop、上下文、会话和接口概览。
 - [包目录](packages/)：重点认识 `ai`、`agent`、`coding-agent`、`tui`、`durable`、`chord`。
+- [应用目录](apps/)：重点了解 `p2` 原型与当前的 `p3` 服务器应用。
 
 **练习：**
 
-1. 画出两条路径：`pi-ai → pi-agent-core → pi-coding-agent`，以及 `pi-ai + Chord → pi-durable → 应用`。
+1. 画出两条路径：`pi-ai → pi-agent-core → pi-coding-agent`，以及 `pi-ai + Chord → pi-durable → 服务器应用`。
 2. 用 Pi 完成一个简单任务，记录它调用了什么工具、工具结果如何回到模型上下文。
-3. 找到 CLI 的入口、AgentSession、内置工具和一个交互模式入口。
+3. 找到 CLI 的入口、`AgentSession`、`SessionManager`、内置工具和一个交互模式入口。
 
-**完成标准：** 能用自己的话解释 CLI 和 Durable 的关系，并指出它们不是同一套会话运行时。
+**完成标准：** 能说清 `Agent`、`AgentSession`、`SessionManager` 和 Durable `Conversation` 的边界；知道 `pi-agent-core` 本身不负责把会话写入磁盘。
 
 ## 第 1 周：模型 API 与 Agent loop
 
@@ -42,15 +43,16 @@
 - [`packages/agent/src/agent.ts`](packages/agent/src/agent.ts)：Agent 状态与公开操作。
 - [`packages/agent/src/agent-loop.ts`](packages/agent/src/agent-loop.ts)：请求、流式响应和工具调用循环。
 - [`packages/agent/src/types.ts`](packages/agent/src/types.ts)：消息、工具和事件类型。
-- [Agent Core README](packages/agent/README.md)：事件顺序和工具执行说明。
+- [Agent Core 中文文档](packages/agent/README.zh-CN.md)：事件顺序和工具执行说明。
 
 **练习：**
 
-1. 画出一次“用户消息 → 模型回复 → 工具调用 → 工具结果 → 下一轮模型回复”的事件时序。
-2. 比较模型消息和 AgentMessage；标出哪些消息只供应用使用、哪些会转换成模型输入。
-3. 跟踪一次流式文本事件和一次工具调用事件，说明它们分别由哪一层产生。
+1. 画出一次“用户消息 → 模型回复 → 工具调用 → 工具结果 → 下一轮模型回复”的事件时序，并区分 `turn_end` 和 `agent_end`。
+2. 从 `AgentMessage[]` 跟到 `convertToLlm()`：说明 `transformContext()` 如何选做，以及哪些应用消息会在转换时被筛掉。
+3. 跟踪并行工具调用：完成事件可以按工具结束顺序发出，但工具结果仍按助手原始调用顺序进入 transcript。
+4. 找出 `prepareRequest` 与 `finishTurn` 的调用位置，说明它们分别处于一次 provider 请求和一轮结束流程的哪一侧。
 
-**完成标准：** 能说明 provider 负责模型协议适配，Agent loop 负责对话轮次与工具执行，二者如何通过流式接口连接。
+**完成标准：** 能说明 provider 负责模型协议适配、Agent loop 负责运行与工具调度；也能解释运行时状态和磁盘会话不是同一层职责。
 
 ## 第 2 周：CLI、会话与上下文
 
@@ -71,7 +73,7 @@
 2. 画出会话树的父子关系，说明从旧节点继续对话会发生什么。
 3. 解释 compaction 为什么增加摘要记录而不是直接删除旧会话历史。
 
-**完成标准：** 能区分“持久化会话历史”和“当前模型请求上下文”，并指出分支与摘要分别解决什么问题。
+**完成标准：** 能区分“追加写入的 JSONL 会话树”和“当前分支投影出的模型上下文”。分支会改变活动叶节点而保留旧记录；压缩摘要会影响后续上下文，不会删掉原始会话历史。
 
 ## 第 3 周：工具、扩展与接口
 
@@ -83,13 +85,14 @@
 - [`packages/coding-agent/src/core/extensions/`](packages/coding-agent/src/core/extensions/)：扩展加载和运行。
 - [`packages/coding-agent/src/core/skills.ts`](packages/coding-agent/src/core/skills.ts)：Skill 发现与加载。
 - [`packages/coding-agent/src/modes/`](packages/coding-agent/src/modes/)：交互、打印、JSON 和 RPC 模式。
-- [扩展指南](packages/coding-agent/docs/zh-CN/extensions.md)、[SDK](packages/coding-agent/docs/zh-CN/sdk.md)、[RPC](packages/coding-agent/docs/zh-CN/rpc.md)。
+- [扩展指南](packages/coding-agent/docs/zh-CN/extensions.md)、[自定义供应商](packages/coding-agent/docs/zh-CN/custom-provider.md)、[MCP](packages/coding-agent/docs/zh-CN/mcp.md)、[Codemode](packages/coding-agent/docs/zh-CN/codemode.md)、[SDK](packages/coding-agent/docs/zh-CN/sdk.md)、[RPC](packages/coding-agent/docs/zh-CN/rpc.md)。
 
 **练习：**
 
 1. 写一个只读工具，例如统计当前项目中某类文件的数量；先定义参数和结果，再接入扩展。
 2. 增加一个命令或事件处理器，记录它如何注册、何时调用以及如何向用户反馈。
 3. 对比交互模式和 RPC：它们如何共享会话机制，又如何使用不同的输入输出协议？
+4. 对比工具扩展与自定义供应商扩展：各自注册什么接口、运行在什么信任边界内？
 
 **安全检查：** CLI 默认以启动 Pi 的操作系统用户权限运行。阅读[容器化说明](packages/coding-agent/docs/zh-CN/containerization.md)，弄清扩展和 shell 工具的信任边界。
 
@@ -97,7 +100,7 @@
 
 ## 第 4 周：Durable 持久化运行时
 
-**目标：** 理解 Durable 与普通 Agent loop 的差别：任务状态可提交、检查点可恢复。
+**目标：** 理解 Durable 与普通 Agent loop 的差别：输入先持久化为 submission，generation/tool 等任务通过提交检查点推进，并在进程重启后恢复。Durable 仍标为实验性项目，学习时以当前代码为准。
 
 **源码入口：**
 
@@ -106,34 +109,37 @@
 - [`packages/durable/src/harness/tool.ts`](packages/durable/src/harness/tool.ts)：工具任务。
 - [`packages/durable/src/harness/scheduler.ts`](packages/durable/src/harness/scheduler.ts)：任务调度。
 - [`packages/durable/src/session/`](packages/durable/src/session/)：会话事务和存储适配。
-- [Durable README](packages/durable/README.md)：提交、任务、恢复、存储和扩展。
+- 从下列入口追踪提交、任务、恢复和存储；本周概念以代码中的类型与状态转换为准。
 
 **练习：**
 
-1. 用自己的话解释 Harness、Conversation、Entry、Document、Task 和 Submission 的关系。
-2. 画出输入提交、生成任务、工具任务、结果提交的生命周期，并标出崩溃后可恢复的检查点。
-3. 写一个小型持久化 Agent 示例：提交输入、等待结果、关闭后重新打开存储并恢复。
+1. 用自己的话解释 Harness、Conversation、Entry、Document、Task 和 Submission：Conversation 是对话句柄，Entry 是不可变 transcript 记录，Document 保存可变状态，Task 持有可恢复的工作与检查点，Submission 表示被持久接纳的输入。
+2. 画出 `submit → generation → tool task → commit → settled submission` 的生命周期，并标出每一步何时持久化、崩溃后从哪个 checkpoint 恢复。
+3. 用同一个 `requestId` 重试提交，验证不会重复创建输入；再比较 `replay: "safe"` 与 `"unsafe"` 工具在中断后的行为，并为外部副作用设计幂等键。
+4. 用持久化存储关闭并重新打开 Harness，恢复正在等待的任务。另验证取消 `Submission.wait()` 只取消等待，不会取消 Durable 任务。
 
-**完成标准：** 能说明数据何时变成持久状态、一次重试如何避免重复提交，以及 Durable 为何需要任务调度器。
+**完成标准：** 能说明提交与结果的持久化边界、`requestId` 与工具 replay policy 如何控制重放风险，以及任务调度器如何恢复任务；能区分“取消等待”和“取消工作”。
 
 ## 第 5 周：Chord 与应用组合
 
-**目标：** 了解 Durable 所依赖的对象运行时，以及 p2/p3 如何组合服务端和插件。
+**目标：** 理解 Chord 如何组合跨进程对象、插件与存储，并认识当前 p3 的服务器/worker 架构。p3 目前是 headless（没有浏览器页面）；p2 是不受支持、计划被替换的原型，只作为历史架构对照，不作为新项目基础。
 
 **阅读：**
 
-- [`packages/chord/README.md`](packages/chord/README.md)、[`packages/chord/docs/design.md`](packages/chord/docs/design.md)：契约、对象、插件、链接、存储和多进程模型。
-- [`apps/p2/README.md`](apps/p2/README.md)：基于 Chord 与 Durable 插件构建的实验性自托管界面。
-- [`apps/p3/README.md`](apps/p3/README.md)：基于 Chord v2 的服务器与插件组织方式。
-- [`apps/p3/docs/README.md`](apps/p3/docs/README.md)：p3 的开发指南入口。
+- `packages/chord/src/`：从 contracts、host、link、documents、store 等模块查看契约、facet、对象引用、事务和存储。
+- [`apps/p3/src/bin.ts`](apps/p3/src/bin.ts)、[`server.ts`](apps/p3/src/server.ts)、[`worker.ts`](apps/p3/src/worker.ts)：p3 命令/进程管理、服务器启动和每会话 worker 启动。
+- [`apps/p3/src/server-core.ts`](apps/p3/src/server-core.ts)、[`worker-core.ts`](apps/p3/src/worker-core.ts)、[`api/v1/`](apps/p3/src/api/v1/)：核心 facet 和供插件导入的 API。
+- [`apps/p3/plugins/`](apps/p3/plugins/)：服务器与 worker 加载的插件。
+- 若准备实际修改 p3，请按 `apps/p3/docs/README.md` 的顺序完整阅读 `process.md`、`chord-practices.md`、`testing.md`、`performance.md` 和 `names.md`。
+- `apps/p2/` 可用来对照浏览器/TUI 自托管原型；它不代表 p3 当前已有的 UI。
 
 **练习：**
 
 1. 解释 contract、facet、host、reference、document 和 link 各自负责什么。
-2. 从 p3 的 `src/server.ts` 和 `src/worker.ts` 追踪一次服务端与 worker 的启动关系。
-3. 选一个 p3 插件，说明它向哪个 host 注册能力，以及运行时如何加载它。
+2. 从 p3 的 `bin.ts` 跟到 `startServer()`，再追踪 server 如何启动每会话 worker；标出各进程间使用的 link 和控制消息。
+3. 选一个 p3 插件，说明它面向 server 还是 worker host、如何通过 p3 API 注册 facet，以及运行时在哪里加载它。
 
-**完成标准：** 能画出浏览器/客户端、服务器、worker、Chord 对象和持久化存储之间的数据流。
+**完成标准：** 能画出 p3 命令/监督进程、server、每会话 worker、Chord host/link、插件和 SQLite store 之间的数据流；并明确 p3 当前没有浏览器页面，p2 的 UI 属于原型路径。
 
 ## 结业项目
 
@@ -149,12 +155,14 @@
 
 - 创建一个持久化对话，注册一个自定义工具。
 - 在工具任务运行过程中关闭并重启进程，检查任务恢复行为。
+- 让工具在提交外部副作用前后各中断一次，观察恢复、replay policy 和幂等键如何影响重复执行。
 - 说明应用层、Durable Harness、Chord 对象和存储的职责边界。
 
 ## 建议的阅读原则
 
 1. 先顺着一次真实调用读代码，不要从每个目录的第一个文件开始通读。
 2. 每阶段画一张时序图，并记录每层的输入、输出和持久化责任。
-3. 先看 CLI 的 `pi-agent-core` 路径，再看 Durable/Chord；它们共享部分基础库，但运行时目标不同。
-4. 读到复杂抽象时，回到 README、类型定义和小型示例，验证自己对概念的理解。
+3. 先看 CLI 的 `pi-agent-core` 路径，再看 Durable/Chord；它们共享 `pi-ai` 等基础库，但运行时目标不同。
+4. 读到复杂抽象时，回到对应中文文档、类型定义和小型示例，验证自己对概念的理解。
+5. 把文档当作入口而非实现证明；遇到生命周期、提交或恢复语义时，沿着代码和类型确认当前行为。
 
