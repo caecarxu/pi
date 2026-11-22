@@ -95,7 +95,7 @@ pi --use-theme light/dark
 
 终端默认颜色会以终端自身的颜色显示。在 HTML 导出或扩展颜色计算等需要具体值的场景中，Pi 会使用终端报告的默认颜色；如果终端没有报告，则根据主题外观猜测黑色或白色。
 
-Pi 会解析链式变量引用。变量缺失或存在循环引用时，主题无效。终端支持时 Pi 使用真彩色；否则会将 OKLCH 映射到 sRGB，并为 256 色终端近似转换颜色。HTML 导出会将 OKHSL 转换为十六进制，因为 CSS 不支持 OKHSL。如果颜色与源值不同，请检查终端的真彩色检测和对比度设置。参阅[配置终端](terminal-setup.md#override-detected-capabilities)。
+Pi 会解析链式变量引用。变量缺失或存在循环引用时，主题无效。Pi 会将 OKLCH 映射到 sRGB；支持真彩色时直接使用映射结果，不支持时则为 256 色终端近似转换颜色。HTML 导出会将 OKHSL 转换为十六进制，因为 CSS 不支持 OKHSL。如果颜色与源值不同，请检查终端的真彩色检测和对比度设置。参阅[配置终端](terminal-setup.md#override-detected-capabilities)。
 
 精确的属性、必需颜色和允许的值类型请参阅[主题 JSON 架构](https://pi.dev/schemas/theme.schema.json)。
 

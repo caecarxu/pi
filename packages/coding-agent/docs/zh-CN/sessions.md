@@ -4,6 +4,21 @@
 
 Pi 将一次对话保存为会话。会话的活动分支为下一次模型请求提供对话历史。使用会话命令可以继续工作、探索其他分支，或减少发送给模型的历史内容。
 
+```mermaid
+flowchart LR
+    root[会话根条目] --> old[较早的条目]
+    old --> leaf[活动叶子]
+    leaf --> append[新消息追加为子条目]
+    append --> next[更新活动叶子]
+    leaf -->|/tree 选择较早条目| branch[后续条目形成新分支]
+    leaf -->|/fork 或 /clone| copy[将选定历史复制到新会话]
+    leaf --> projection[活动分支投影]
+    projection --> request[下一次模型请求]
+    compact[压缩摘要] --> projection
+```
+
+活动叶子和只追加的会话树由 [`SessionManager`](../../src/core/session-manager.ts#L987) 管理；分支选择和模型上下文投影分别见 [`branch()`](../../src/core/session-manager.ts#L1599) 与 [`buildSessionProjection()`](../../src/core/session-manager.ts#L1513)。分叉会通过 [`forkFrom()`](../../src/core/session-manager.ts#L1835) 创建独立会话文件。
+
 ## 继续或切换会话
 
 除非使用 `--no-session` 启动 Pi，否则会话会自动保存。

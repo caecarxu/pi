@@ -5,6 +5,20 @@
 
 Pi 通过 stdio 或可流式传输的 HTTP 连接到 [Model Context Protocol](https://modelcontextprotocol.io) 服务器，并将其工具和资源提供给模型。
 
+```mermaid
+flowchart LR
+    config[用户或受信任项目的配置] --> extension[MCP 扩展]
+    extension --> server[stdio 或 HTTP 服务器]
+    server --> catalog[工具和资源]
+    catalog --> exposure[暴露策略]
+    exposure --> direct[直接提供给模型的工具]
+    exposure --> codemode[Codemode 或工具搜索]
+    direct --> result[工具结果]
+    codemode --> result
+```
+
+内置扩展入口位于 [`index.ts`](../../src/extensions/mcp/index.ts)；服务器生命周期和传输处理在 [`runtime.ts`](../../src/extensions/mcp/runtime.ts)，工具注册在 [`tools.ts`](../../src/extensions/mcp/tools.ts)。
+
 <a id="quick-setup"></a>
 ## 快速设置
 

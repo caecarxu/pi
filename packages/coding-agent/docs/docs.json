@@ -18,6 +18,15 @@
       ]
     },
     {
+      "title": "简体中文",
+      "items": [
+        {
+          "title": "中文文档",
+          "path": "zh-CN/index.md"
+        }
+      ]
+    },
+    {
       "title": "Guides",
       "items": [
         {

@@ -104,7 +104,7 @@ export default function (pi: ExtensionAPI) {
             cachedWidth = width;
             cachedLines = [
               theme.fg("accent", "Choose a deployment target"),
-              ...choices.map((choice, index) => `\${index === selectedIndex ? "> " : "  "}\${choice}`),
+              ...choices.map((choice, index) => `${index === selectedIndex ? "> " : "  "}${choice}`),
               theme.fg("dim", "up/down move, enter selects, escape cancels"),
             ].map((line) => truncateToWidth(line, width));
             return cachedLines;
@@ -131,7 +131,7 @@ export default function (pi: ExtensionAPI) {
         };
       });
 
-      if (selected) ctx.ui.notify(`Selected \${selected}`, "info");
+      if (selected) ctx.ui.notify(`Selected ${selected}`, "info");
     },
   });
 }

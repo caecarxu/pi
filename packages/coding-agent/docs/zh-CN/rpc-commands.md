@@ -4,6 +4,8 @@
 
 本文列出通过 stdin 在 [RPC 模式](rpc.md)下接受的命令。每条命令和响应都是一个 JSON 对象。共享消息值见[消息类型](message-types.md)。
 
+RPC 类型定义位于 [`rpc-types.ts`](../../src/modes/rpc/rpc-types.ts)；[`rpc-mode.ts`](../../src/modes/rpc/rpc-mode.ts) 解析并分发命令，会话操作由 [`AgentSession`](../../src/core/agent-session.ts) 实现。
+
 <a id="prompting"></a>
 ## 提示
 

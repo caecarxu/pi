@@ -4,6 +4,17 @@
 
 `codemode` 工具允许模型编写 JavaScript 脚本，调用 Pi 的其他工具并运行非 LLM 模型，例如分类器和图像模型。只有脚本输出会传给模型，因此脚本可以并行执行调用，并在大型结果到达模型之前筛选内容。启用方法见[启用 codemode](cli.md#enable-codemode)。
 
+```mermaid
+flowchart LR
+    model[模型] -->|JavaScript| sandbox[QuickJS 沙箱]
+    sandbox -->|工具和模型调用| host[Pi 宿主桥接层]
+    host --> tools[已选工具和非 LLM 模型]
+    tools --> host --> sandbox
+    sandbox -->|仅脚本输出| model
+```
+
+宿主工具和执行路径分别由 [`tool.ts`](../../src/extensions/codemode/tool.ts)、[`execute.ts`](../../src/extensions/codemode/execute.ts) 和 [`worker.ts`](../../src/extensions/codemode/worker.ts) 实现。沙箱本身没有文件系统或网络 API；脚本只能经由桥接层访问这些能力。
+
 ## 脚本
 
 工具输入是原始 JavaScript 源码，不是 JSON，也不能放在 Markdown 代码围栏中。脚本会作为异步函数体在 QuickJS 沙箱中运行，因此可以在顶层使用 `await` 和 `return`。沙箱没有 Node API、文件系统、网络或计时器；脚本只能通过工具和 `models` 与外部交互。

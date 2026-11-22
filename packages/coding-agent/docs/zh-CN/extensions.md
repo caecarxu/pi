@@ -321,16 +321,16 @@ export default async function (pi: ExtensionAPI) {
 
 ```mermaid
 flowchart TD
-    Input["input"] --> Before["before_agent_start"]
+    Input["输入处理"] --> Before["before_agent_start"]
     Before --> AgentStart["agent_start"]
-    AgentStart --> Turns[["turns"]]
+    AgentStart --> Turns[["轮次循环"]]
     Turns --> AgentEnd["agent_end"]
-    AgentEnd --> MoreRuns{"More work?"}
-    MoreRuns -->|yes| AgentStart
-    MoreRuns -->|no| BeforeSettle["agent_before_settle"]
-    BeforeSettle --> Continue{"Continuation requested?"}
-    Continue -->|yes| AgentStart
-    Continue -->|no| Settled["agent_settled"]
+    AgentEnd --> MoreRuns{"还有后续工作？"}
+    MoreRuns -->|是| AgentStart
+    MoreRuns -->|否| BeforeSettle["agent_before_settle"]
+    BeforeSettle --> Continue{"请求继续？"}
+    Continue -->|是| AgentStart
+    Continue -->|否| Settled["agent_settled"]
 ```
 
 更多工作包括重试、最后一次尝试的恢复、压缩后重试或排队的消息。因此，`agent_end` 并不表示最终空闲；需要判断最终空闲状态时请使用 `agent_settled`。中止的运行会跳过 `agent_before_settle`，从 `agent_end` 直接进入 `agent_settled`。在运行启动期间（包括压缩检查和 `before_agent_start`）Pi 都会视为繁忙，因此此时发送的消息会进入正在启动的运行。
@@ -339,14 +339,14 @@ flowchart TD
 
 ```mermaid
 flowchart TD
-    TurnStart["turn_start"] --> Request[["model request"]]
-    Request --> ToolDecision{"Tool calls?"}
-    ToolDecision -->|yes| Tools[["tool execution"]]
+    TurnStart["turn_start"] --> Request[["模型请求"]]
+    Request --> ToolDecision{"有工具调用？"}
+    ToolDecision -->|是| Tools[["执行工具"]]
     Tools --> TurnEnd["turn_end"]
     ToolDecision -->|no| TurnEnd
-    TurnEnd --> MoreTurns{"Another turn?"}
-    MoreTurns -->|yes| TurnStart
-    MoreTurns -->|no| AgentEnd(["agent_end"])
+    TurnEnd --> MoreTurns{"还有下一轮？"}
+    MoreTurns -->|是| TurnStart
+    MoreTurns -->|否| AgentEnd(["agent_end"])
 ```
 
 模型请求会按以下顺序运行这些钩子：
@@ -358,7 +358,7 @@ flowchart TD
 5. `after_provider_response`（在读取流之前处理状态码和标头）
 6. `provider_stream_event`（原始解析后的流事件），以及 assistant 消息对应的 `message_start` / `message_update` / `message_end`
 
-A 个实际执行的工具调用会按以下顺序运行这些钩子：
+一个实际执行的工具调用会按以下顺序运行这些钩子：
 
 1. `tool_execution_start`
 2. `tool_call`（可以阻止调用或修改输入）
@@ -374,19 +374,19 @@ A 个实际执行的工具调用会按以下顺序运行这些钩子：
 
 ```mermaid
 flowchart TD
-    Startup["Process startup"] --> Trust["project_trust when needed"]
+    Startup["进程启动"] --> Trust["需要时检查 project_trust"]
     Trust --> SessionStart["session_start"]
-    Switch["/new or /resume"] --> BeforeSwitch["session_before_switch"]
-    Fork["/fork or /clone"] --> BeforeFork["session_before_fork"]
+    Switch["/new 或 /resume"] --> BeforeSwitch["session_before_switch"]
+    Fork["/fork 或 /clone"] --> BeforeFork["session_before_fork"]
     BeforeSwitch --> Shutdown["session_shutdown"]
     BeforeFork --> Shutdown
     Reload["/reload"] --> Shutdown
-    Exit["exit"] --> Shutdown
-    Shutdown --> Replacing{"Replacing the runtime?"}
-    Replacing -->|yes| ReplacementTrust["project_trust when the working directory is new"]
-    ReplacementTrust --> Replacement["load replacement extension runtime"]
+    Exit["退出"] --> Shutdown
+    Shutdown --> Replacing{"是否替换运行时？"}
+    Replacing -->|是| ReplacementTrust["工作目录变化时检查 project_trust"]
+    ReplacementTrust --> Replacement["加载新的扩展运行时"]
     Replacement --> SessionStart
-    Replacing -->|no| Stop["process exits"]
+    Replacing -->|否| Stop["进程退出"]
     SessionStart --> Discover["resources_discover"]
 ```
 
