@@ -249,6 +249,7 @@ export function createReadToolDefinition(
 			_onUpdate?,
 			ctx?: ExtensionContext,
 		) {
+			// PI-READ：模型提交 read 的 path/offset/limit 后，从这里进入具体实现；可与 agent-loop.ts 的 executeToolCalls 对照着读。
 			return new Promise<{ content: (TextContent | ImageContent)[]; details: ReadToolDetails | undefined }>(
 				(resolve, reject) => {
 					if (signal?.aborted) {
@@ -264,6 +265,7 @@ export function createReadToolDefinition(
 
 					(async () => {
 						try {
+							// PI-READ：先按工具上下文的 cwd 解析相对路径，再检查目标是否可读。
 							const absolutePath = await resolveReadPathAsync(path, ctx?.cwd || cwd);
 							if (aborted) return;
 							// Check if file exists and is readable.
@@ -273,6 +275,7 @@ export function createReadToolDefinition(
 							let content: (TextContent | ImageContent)[];
 							let details: ReadToolDetails | undefined;
 							if (mimeType) {
+								// PI-READ：图片走二进制读取和图片预处理分支，输出中同时带给模型的图片块与说明文字。
 								// Read image as binary.
 								const buffer = await ops.readFile(absolutePath);
 								const processed = await processImage(buffer, mimeType, {
@@ -294,6 +297,7 @@ export function createReadToolDefinition(
 									}
 								}
 							} else {
+								// PI-READ：文本优先按块读取，只保留最终可能展示的行；不支持流的自定义操作才整文件读入内存。
 								// Read text content. Convert offset from 1-indexed input to 0-indexed line access.
 								const startLine = offset ? Math.max(0, offset - 1) : 0;
 								const startLineDisplay = startLine + 1;
@@ -316,6 +320,7 @@ export function createReadToolDefinition(
 									limit === undefined ? undefined : Math.min(startLine + limit, totalFileLines) - startLine;
 								let outputText: string;
 								if (truncation.firstLineExceedsLimit) {
+									// PI-READ：若单行本身超出字节上限，返回可操作的提示，而不是把超大行塞进模型上下文。
 									// First line alone exceeds the byte limit. Point the model at a bash fallback.
 									const firstLineSize = formatSize(firstLineBytes);
 									outputText = `[Line ${startLineDisplay} is ${firstLineSize}, exceeds ${formatSize(DEFAULT_MAX_BYTES)} limit. Use bash: sed -n '${startLineDisplay}p' ${path} | head -c ${DEFAULT_MAX_BYTES}]`;
@@ -345,6 +350,7 @@ export function createReadToolDefinition(
 
 							if (aborted) return;
 							signal?.removeEventListener("abort", onAbort);
+							// PI-READ：content/details 是 Agent 工具循环使用的结果；structuredContent 另给程序化调用方简化输出。
 							resolve({ content, details });
 						} catch (error: any) {
 							signal?.removeEventListener("abort", onAbort);
