@@ -4096,6 +4096,7 @@ export class InteractiveMode {
 					message.fullOutputPath,
 					message.fullOutputError,
 				);
+				component.setExpanded(this.toolOutputExpanded);
 				this.chatContainer.addChild(component);
 				break;
 			}
