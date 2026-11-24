@@ -6,7 +6,7 @@
 
 Pi 在加载项目资源前，可能会询问你是否信任当前工作文件夹。详情见[项目目录信任](security.md#understand-project-trust)。
 
-<p align="center"><img src="../images/interactive-mode.png" alt="Pi 交互模式，显示对话、编辑器和状态信息" width="750"></p>
+<p align="center"><img src="images/interactive-mode.png" alt="Pi 交互模式，显示对话、编辑器和状态信息" width="750"></p>
 
 对话记录会显示你的提示、Pi 的回复、工具调用、结果和错误。你可以在编辑器中输入提示和命令。页脚显示当前文件夹、会话、模型、上下文使用量以及累计用量和费用。
 

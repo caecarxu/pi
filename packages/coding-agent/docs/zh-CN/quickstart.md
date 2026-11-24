@@ -51,7 +51,7 @@ pi
 
 工作文件夹有助于 Pi 发现相关文件、指令和配置。Pi 也会用它对保存的会话进行分组。
 
-<p align="center"><img src="../images/interactive-mode.png" alt="Pi 在终端中运行，显示对话、输入编辑器和状态页脚" width="750"></p>
+<p align="center"><img src="images/interactive-mode.png" alt="Pi 在终端中运行，显示对话、输入编辑器和状态页脚" width="750"></p>
 
 界面会显示对话、用于输入提示和命令的编辑器，以及显示当前文件夹、模型和会话状态的页脚。有关添加文件、运行命令、引导持续工作和管理结果的说明，请参阅[在终端中使用 Pi](usage.md)。
 
