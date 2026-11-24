@@ -149,7 +149,7 @@ export default function (pi: ExtensionAPI) {
 
 通过组件工厂提供的完成回调结束交互。该回调会完成 `ctx.ui.custom()` 返回的 Promise 并释放组件。不要对由 `ctx.ui.custom()` 创建的覆盖层调用 `OverlayHandle.hide()`。
 
-关于定位、堆叠、焦点、响应式可见性和动画行为，请参阅[`overlay-qa-tests.ts`](../../examples/extensions/overlay-qa-tests.ts)。
+关于定位、堆叠、焦点、响应式可见性和动画行为，请参阅[`overlay-qa-tests.ts`](vscode://file//Users/xuzh/git/pi/packages/coding-agent/examples/extensions/overlay-qa-tests.ts:1:1)。
 
 ## 正确应用主题
 
@@ -191,11 +191,11 @@ return new Text(
 
 已检查的扩展示例涵盖了主要模式：
 
-- [`preset.ts`](../../examples/extensions/preset.ts) 和 [`tools.ts`](../../examples/extensions/tools.ts) 使用选择列表和设置列表。
-- [`qna.ts`](../../examples/extensions/qna.ts) 使用可取消的异步 UI。
-- [`modal-editor.ts`](../../examples/extensions/modal-editor.ts) 替换编辑器。
-- [`custom-footer.ts`](../../examples/extensions/custom-footer.ts) 替换页脚。
-- [`widget-placement.ts`](../../examples/extensions/widget-placement.ts) 在编辑器周围放置持久内容。
+- [`preset.ts`](vscode://file//Users/xuzh/git/pi/packages/coding-agent/examples/extensions/preset.ts:1:1) 和 [`tools.ts`](vscode://file//Users/xuzh/git/pi/packages/coding-agent/examples/extensions/tools.ts:1:1) 使用选择列表和设置列表。
+- [`qna.ts`](vscode://file//Users/xuzh/git/pi/packages/coding-agent/examples/extensions/qna.ts:1:1) 使用可取消的异步 UI。
+- [`modal-editor.ts`](vscode://file//Users/xuzh/git/pi/packages/coding-agent/examples/extensions/modal-editor.ts:1:1) 替换编辑器。
+- [`custom-footer.ts`](vscode://file//Users/xuzh/git/pi/packages/coding-agent/examples/extensions/custom-footer.ts:1:1) 替换页脚。
+- [`widget-placement.ts`](vscode://file//Users/xuzh/git/pi/packages/coding-agent/examples/extensions/widget-placement.ts:1:1) 在编辑器周围放置持久内容。
 - [`doom-overlay/`](../../examples/extensions/doom-overlay/) 展示持续渲染的覆盖层。
 
-公开导出定义在 [`packages/tui/src/index.ts`](https://github.com/earendil-works/pi/blob/main/packages/tui/src/index.ts)。关于扩展生命周期、状态、工具、事件和模式行为，请参阅[扩展](extensions.md)。
+公开导出定义在 [`packages/tui/src/index.ts`](vscode://file//Users/xuzh/git/pi/packages/tui/src/index.ts:1:1)。关于扩展生命周期、状态、工具、事件和模式行为，请参阅[扩展](extensions.md)。

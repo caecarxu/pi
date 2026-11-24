@@ -13,7 +13,7 @@ flowchart LR
     sandbox -->|仅脚本输出| model
 ```
 
-宿主工具和执行路径分别由 [`tool.ts`](../../src/extensions/codemode/tool.ts)、[`execute.ts`](../../src/extensions/codemode/execute.ts) 和 [`worker.ts`](../../src/extensions/codemode/worker.ts) 实现。沙箱本身没有文件系统或网络 API；脚本只能经由桥接层访问这些能力。
+宿主工具和执行路径分别由 [`tool.ts`](vscode://file//Users/xuzh/git/pi/packages/coding-agent/src/extensions/codemode/tool.ts:1:1)、[`execute.ts`](vscode://file//Users/xuzh/git/pi/packages/coding-agent/src/extensions/codemode/execute.ts:1:1) 和 [`worker.ts`](vscode://file//Users/xuzh/git/pi/packages/coding-agent/src/extensions/codemode/worker.ts:1:1) 实现。沙箱本身没有文件系统或网络 API；脚本只能经由桥接层访问这些能力。
 
 ## 脚本
 

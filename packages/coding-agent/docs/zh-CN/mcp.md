@@ -17,7 +17,7 @@ flowchart LR
     codemode --> result
 ```
 
-内置扩展入口位于 [`index.ts`](../../src/extensions/mcp/index.ts)；服务器生命周期和传输处理在 [`runtime.ts`](../../src/extensions/mcp/runtime.ts)，工具注册在 [`tools.ts`](../../src/extensions/mcp/tools.ts)。
+内置扩展入口位于 [`index.ts`](vscode://file//Users/xuzh/git/pi/packages/coding-agent/src/extensions/mcp/index.ts:1:1)；服务器生命周期和传输处理在 [`runtime.ts`](vscode://file//Users/xuzh/git/pi/packages/coding-agent/src/extensions/mcp/runtime.ts:1:1)，工具注册在 [`tools.ts`](vscode://file//Users/xuzh/git/pi/packages/coding-agent/src/extensions/mcp/tools.ts:1:1)。
 
 <a id="quick-setup"></a>
 ## 快速设置

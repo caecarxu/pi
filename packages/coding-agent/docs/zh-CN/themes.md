@@ -60,7 +60,7 @@ pi --use-theme light/dark
 
 ## 创建自定义主题
 
-复制一个[内置主题](https://github.com/earendil-works/pi/tree/main/packages/coding-agent/src/modes/interactive/theme)，或创建符合[架构](https://pi.dev/schemas/theme.schema.json)的新 JSON 文件。内置主题使用 OKHSL 颜色，并为多个角色共用的颜色定义变量，因此可以直接调整色相、饱和度或亮度。
+复制一个[内置主题](vscode://file//Users/xuzh/git/pi/packages/coding-agent/src/modes/interactive/theme)，或创建符合[架构](https://pi.dev/schemas/theme.schema.json)的新 JSON 文件。内置主题使用 OKHSL 颜色，并为多个角色共用的颜色定义变量，因此可以直接调整色相、饱和度或亮度。
 
 1. 将文件保存为 `<agent-dir>/themes/my-theme.json`。Agent 目录默认为 `~/.pi/agent`。
 2. 将其 `name` 设为 `my-theme`。

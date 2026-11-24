@@ -197,6 +197,6 @@
 
 ## 示例
 
-参见经过检查的 [RPC 扩展 UI 客户端](../../examples/rpc-extension-ui.ts)和[演示扩展](../../examples/extensions/rpc-demo.ts)。
+参见经过检查的 [RPC 扩展 UI 客户端](vscode://file//Users/xuzh/git/pi/packages/coding-agent/examples/rpc-extension-ui.ts:1:1)和[演示扩展](vscode://file//Users/xuzh/git/pi/packages/coding-agent/examples/extensions/rpc-demo.ts:1:1)。
 
-导出的请求和响应联合类型定义在 [`rpc-types.ts`](https://github.com/earendil-works/pi/blob/main/packages/coding-agent/src/modes/rpc/rpc-types.ts) 中。与模式无关的扩展指南见[扩展](extensions.md#ui-and-modes)。
+导出的请求和响应联合类型定义在 [`rpc-types.ts`](vscode://file//Users/xuzh/git/pi/packages/coding-agent/src/modes/rpc/rpc-types.ts:1:1) 中。与模式无关的扩展指南见[扩展](extensions.md#ui-and-modes)。

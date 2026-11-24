@@ -147,7 +147,7 @@ Treat each custom component instance as belonging to one interaction. Create a n
 
 Finish the interaction with the completion callback supplied to the component factory. It resolves the `ctx.ui.custom()` promise and disposes the component. Do not call `OverlayHandle.hide()` on an overlay created by `ctx.ui.custom()`.
 
-See [`overlay-qa-tests.ts`](../examples/extensions/overlay-qa-tests.ts) for positioning, stacking, focus, responsive visibility, and animation behavior.
+See [`overlay-qa-tests.ts`](vscode://file//Users/xuzh/git/pi/packages/coding-agent/examples/extensions/overlay-qa-tests.ts:1:1) for positioning, stacking, focus, responsive visibility, and animation behavior.
 
 ## Apply themes correctly
 
@@ -189,11 +189,11 @@ Use `PI_TUI_WRITE_LOG` to capture the raw ANSI stream when diagnosing rendering 
 
 The checked extension examples cover the main patterns:
 
-- [`preset.ts`](../examples/extensions/preset.ts) and [`tools.ts`](../examples/extensions/tools.ts) use selection and settings lists.
-- [`qna.ts`](../examples/extensions/qna.ts) uses cancellable asynchronous UI.
-- [`modal-editor.ts`](../examples/extensions/modal-editor.ts) replaces the editor.
-- [`custom-footer.ts`](../examples/extensions/custom-footer.ts) replaces the footer.
-- [`widget-placement.ts`](../examples/extensions/widget-placement.ts) places persistent content around the editor.
+- [`preset.ts`](vscode://file//Users/xuzh/git/pi/packages/coding-agent/examples/extensions/preset.ts:1:1) and [`tools.ts`](vscode://file//Users/xuzh/git/pi/packages/coding-agent/examples/extensions/tools.ts:1:1) use selection and settings lists.
+- [`qna.ts`](vscode://file//Users/xuzh/git/pi/packages/coding-agent/examples/extensions/qna.ts:1:1) uses cancellable asynchronous UI.
+- [`modal-editor.ts`](vscode://file//Users/xuzh/git/pi/packages/coding-agent/examples/extensions/modal-editor.ts:1:1) replaces the editor.
+- [`custom-footer.ts`](vscode://file//Users/xuzh/git/pi/packages/coding-agent/examples/extensions/custom-footer.ts:1:1) replaces the footer.
+- [`widget-placement.ts`](vscode://file//Users/xuzh/git/pi/packages/coding-agent/examples/extensions/widget-placement.ts:1:1) places persistent content around the editor.
 - [`doom-overlay/`](../examples/extensions/doom-overlay/) demonstrates a continuously rendered overlay.
 
-The public exports are defined in [`packages/tui/src/index.ts`](https://github.com/earendil-works/pi/blob/main/packages/tui/src/index.ts). See [Extensions](extensions.md) for extension lifecycle, state, tools, events, and mode behavior.
+The public exports are defined in [`packages/tui/src/index.ts`](vscode://file//Users/xuzh/git/pi/packages/tui/src/index.ts:1:1). See [Extensions](extensions.md) for extension lifecycle, state, tools, events, and mode behavior.

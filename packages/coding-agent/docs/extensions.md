@@ -907,7 +907,7 @@ pi.on("provider_stream_event", (event, ctx) => {
 });
 ```
 
-`event.data` is not necessarily the original HTTP bytes or SSE frame. Treat it as read-only because mutation can affect normalization. Handlers are awaited in stream order, so slow handlers delay stream consumption. Handler errors are reported without changing the provider response. See [`debug-provider.ts`](../examples/extensions/debug-provider.ts) for an opt-in viewer that groups raw events by assistant message.
+`event.data` is not necessarily the original HTTP bytes or SSE frame. Treat it as read-only because mutation can affect normalization. Handlers are awaited in stream order, so slow handlers delay stream consumption. Handler errors are reported without changing the provider response. See [`debug-provider.ts`](vscode://file//Users/xuzh/git/pi/packages/coding-agent/examples/extensions/debug-provider.ts:1:1) for an opt-in viewer that groups raw events by assistant message.
 
 #### cache_warming_decision
 
@@ -1156,7 +1156,7 @@ pi.on("input", async (event, ctx) => {
 - `transform` - modify text/images, then continue to expansion
 - `handled` - skip agent entirely (first handler to return this wins)
 
-Transforms chain across handlers. See [input-transform.ts](../examples/extensions/input-transform.ts) and [input-transform-streaming.ts](../examples/extensions/input-transform-streaming.ts) for `streamingBehavior`-aware routing.
+Transforms chain across handlers. See [input-transform.ts](vscode://file//Users/xuzh/git/pi/packages/coding-agent/examples/extensions/input-transform.ts:1:1) and [input-transform-streaming.ts](vscode://file//Users/xuzh/git/pi/packages/coding-agent/examples/extensions/input-transform-streaming.ts:1:1) for `streamingBehavior`-aware routing.
 
 <a id="use-extension-context"></a>
 
@@ -1562,7 +1562,7 @@ pi.on("agent_settled", () => {
 });
 ```
 
-`expandPromptTemplates: true` dispatches the text as a command. Without it, or when queued with `deliverAs`, the text reaches the model as a plain user message. See [reload-runtime.ts](../examples/extensions/reload-runtime.ts).
+`expandPromptTemplates: true` dispatches the text as a command. Without it, or when queued with `deliverAs`, the text reaches the model as a plain user message. See [reload-runtime.ts](vscode://file//Users/xuzh/git/pi/packages/coding-agent/examples/extensions/reload-runtime.ts:1:1).
 
 ## ExtensionAPI Methods
 
@@ -1591,7 +1591,7 @@ Use `promptSnippet` to opt a custom tool into a one-line entry in the `<tools>` 
 
 **Important:** `promptGuidelines` bullets are appended flat to the `<rules>` section with no tool name prefix. Each guideline must name the tool it refers to — avoid "Use this tool when..." because the LLM cannot tell which tool "this" means. Write "Use my_tool when..." instead.
 
-See [dynamic-tools.ts](../examples/extensions/dynamic-tools.ts) for a full example.
+See [dynamic-tools.ts](vscode://file//Users/xuzh/git/pi/packages/coding-agent/examples/extensions/dynamic-tools.ts:1:1) for a full example.
 
 ```typescript
 import { Type } from "typebox";
@@ -1678,7 +1678,7 @@ pi.sendUserMessage("/review src/index.ts", { expandPromptTemplates: true });
 
 When not streaming, the message is sent immediately and triggers a new turn. When streaming without `deliverAs`, the message is rejected and Pi reports an extension error.
 
-See [send-user-message.ts](../examples/extensions/send-user-message.ts) for a complete example.
+See [send-user-message.ts](vscode://file//Users/xuzh/git/pi/packages/coding-agent/examples/extensions/send-user-message.ts:1:1) for a complete example.
 
 ### pi.appendEntry(customType, data?)
 
@@ -2286,7 +2286,7 @@ pi.registerTool({
 
 **Signaling errors:** To mark a tool execution as failed, throw an error from `execute`, or return a result with `isError: true`. Both report an error result to the LLM; a returned result also keeps `details` and `structuredContent` for rendering and scripts. Other returned values never set the error flag.
 
-**Early termination:** Return `terminate: true` from `execute()` to hint that the automatic follow-up LLM call should be skipped after the current tool batch. This only takes effect when every finalized tool result in that batch is terminating. See [examples/extensions/structured-output.ts](../examples/extensions/structured-output.ts) for a minimal example where the agent ends on a final structured-output tool call.
+**Early termination:** Return `terminate: true` from `execute()` to hint that the automatic follow-up LLM call should be skipped after the current tool batch. This only takes effect when every finalized tool result in that batch is terminating. See [examples/extensions/structured-output.ts](vscode://file//Users/xuzh/git/pi/packages/coding-agent/examples/extensions/structured-output.ts:1:1) for a minimal example where the agent ends on a final structured-output tool call.
 
 ```typescript
 // Correct: throw to signal an error
@@ -2370,7 +2370,7 @@ Alternatively, use `--no-builtin-tools` to start without any built-in tools whil
 pi --no-builtin-tools -e ./my-extension.ts
 ```
 
-See [examples/extensions/tool-override.ts](../examples/extensions/tool-override.ts) for a complete example that overrides `read` with logging and access control.
+See [examples/extensions/tool-override.ts](vscode://file//Users/xuzh/git/pi/packages/coding-agent/examples/extensions/tool-override.ts:1:1) for a complete example that overrides `read` with logging and access control.
 
 **Rendering:** Built-in renderer inheritance is resolved per slot. Execution override and rendering override are independent. If your override omits `renderCall`, the built-in `renderCall` is used. If your override omits `renderResult`, the built-in `renderResult` is used. If your override omits both, the built-in renderer is used automatically (syntax highlighting, diffs, etc.). This lets you wrap built-in tools for logging or access control without reimplementing the UI.
 
@@ -2379,14 +2379,14 @@ See [examples/extensions/tool-override.ts](../examples/extensions/tool-override.
 **Your implementation must match the exact result shape**, including the `details` type. The UI and session logic depend on these shapes for rendering and state tracking.
 
 Built-in tool implementations:
-- [read.ts](https://github.com/earendil-works/pi/blob/main/packages/coding-agent/src/core/tools/read.ts) - `ReadToolDetails`
-- [bash.ts](https://github.com/earendil-works/pi/blob/main/packages/coding-agent/src/core/tools/bash.ts) - `BashToolDetails`
-- [powershell.ts](https://github.com/earendil-works/pi/blob/main/packages/coding-agent/src/core/tools/powershell.ts) - `PowerShellToolDetails`
-- [edit.ts](https://github.com/earendil-works/pi/blob/main/packages/coding-agent/src/core/tools/edit.ts)
-- [write.ts](https://github.com/earendil-works/pi/blob/main/packages/coding-agent/src/core/tools/write.ts)
-- [grep.ts](https://github.com/earendil-works/pi/blob/main/packages/coding-agent/src/core/tools/grep.ts) - `GrepToolDetails`
-- [find.ts](https://github.com/earendil-works/pi/blob/main/packages/coding-agent/src/core/tools/find.ts) - `FindToolDetails`
-- [ls.ts](https://github.com/earendil-works/pi/blob/main/packages/coding-agent/src/core/tools/ls.ts) - `LsToolDetails`
+- [read.ts](vscode://file//Users/xuzh/git/pi/packages/coding-agent/src/core/tools/read.ts:1:1) - `ReadToolDetails`
+- [bash.ts](vscode://file//Users/xuzh/git/pi/packages/coding-agent/src/core/tools/bash.ts:1:1) - `BashToolDetails`
+- [powershell.ts](vscode://file//Users/xuzh/git/pi/packages/coding-agent/src/core/tools/powershell.ts:1:1) - `PowerShellToolDetails`
+- [edit.ts](vscode://file//Users/xuzh/git/pi/packages/coding-agent/src/core/tools/edit.ts:1:1)
+- [write.ts](vscode://file//Users/xuzh/git/pi/packages/coding-agent/src/core/tools/write.ts:1:1)
+- [grep.ts](vscode://file//Users/xuzh/git/pi/packages/coding-agent/src/core/tools/grep.ts:1:1) - `GrepToolDetails`
+- [find.ts](vscode://file//Users/xuzh/git/pi/packages/coding-agent/src/core/tools/find.ts:1:1) - `FindToolDetails`
+- [ls.ts](vscode://file//Users/xuzh/git/pi/packages/coding-agent/src/core/tools/ls.ts:1:1) - `LsToolDetails`
 
 ### Remote Execution
 
@@ -2420,7 +2420,7 @@ The `create*ToolDefinition()` factories, such as `createReadToolDefinition()`, r
 
 **Operations interfaces:** `ReadOperations`, `WriteOperations`, `EditOperations`, `BashOperations`, `PowerShellOperations`, `LsOperations`, `GrepOperations`, `FindOperations`
 
-`GrepOperations` only covers the directory check: grep always runs the local `rg`. To search a remote system, override grep's `execute()` instead, as the [Gondolin example](../examples/extensions/gondolin/index.ts) does.
+`GrepOperations` only covers the directory check: grep always runs the local `rg`. To search a remote system, override grep's `execute()` instead, as the [Gondolin example](vscode://file//Users/xuzh/git/pi/packages/coding-agent/examples/extensions/gondolin/index.ts:1:1) does.
 
 For `user_bash`, extensions can reuse Pi's local shell backend via `createLocalBashOperations()` (or `createLocalPowerShellOperations()`) instead of reimplementing local process spawning, shell resolution, and process-tree termination.
 
@@ -2446,7 +2446,7 @@ const bashTool = createBashTool(cwd, {
 });
 ```
 
-See [Shell tool session environment](environment-variables.md#shell-tool-session-environment) for variable semantics. See [examples/extensions/ssh.ts](../examples/extensions/ssh.ts) for a complete SSH example with `--ssh` flag.
+See [Shell tool session environment](environment-variables.md#shell-tool-session-environment) for variable semantics. See [examples/extensions/ssh.ts](vscode://file//Users/xuzh/git/pi/packages/coding-agent/examples/extensions/ssh.ts:1:1) for a complete SSH example with `--ssh` flag.
 
 ### Output Truncation
 
@@ -2498,7 +2498,7 @@ async execute(toolCallId, params, signal, onUpdate, ctx) {
 - Always inform the LLM when output is truncated and where to find the full version
 - Document the truncation limits in your tool's description
 
-See [examples/extensions/truncated-tool.ts](../examples/extensions/truncated-tool.ts) for a complete example wrapping `rg` (ripgrep) with proper truncation.
+See [examples/extensions/truncated-tool.ts](vscode://file//Users/xuzh/git/pi/packages/coding-agent/examples/extensions/truncated-tool.ts:1:1) for a complete example wrapping `rg` (ripgrep) with proper truncation.
 
 ### Multiple Tools
 
@@ -2522,7 +2522,7 @@ export default function (pi: ExtensionAPI) {
 
 ### Custom Rendering
 
-Tools can provide `renderCall` and `renderResult` for custom TUI display. See [tui.md](tui.md) for the full component API and [tool-execution.ts](https://github.com/earendil-works/pi/blob/main/packages/coding-agent/src/modes/interactive/components/tool-execution.ts) for how tool rows are composed.
+Tools can provide `renderCall` and `renderResult` for custom TUI display. See [tui.md](tui.md) for the full component API and [tool-execution.ts](vscode://file//Users/xuzh/git/pi/packages/coding-agent/src/modes/interactive/components/tool-execution.ts:1:1) for how tool rows are composed.
 
 By default, tool output is wrapped in a `Box` that handles background and horizontal padding from the `outputPad` setting. Tool renderers are also used in HTML exports. A defined `renderCall` or `renderResult` must return a `Component`. If a slot renderer is not defined, `tool-execution.ts` uses fallback rendering for that slot.
 
@@ -2886,7 +2886,7 @@ if (confirmed) {
 }
 ```
 
-See [examples/extensions/timed-confirm.ts](../examples/extensions/timed-confirm.ts) for complete examples.
+See [examples/extensions/timed-confirm.ts](vscode://file//Users/xuzh/git/pi/packages/coding-agent/examples/extensions/timed-confirm.ts:1:1) for complete examples.
 
 ### Widgets, Status, and Footer
 
@@ -3043,7 +3043,7 @@ pi.on("session_start", (_event, ctx) => {
 });
 ```
 
-See [github-issue-autocomplete.ts](../examples/extensions/github-issue-autocomplete.ts) for a complete example that preloads the latest open GitHub issues with `gh issue list` and filters them locally for fast `#...` completion. It requires GitHub CLI (`gh`) and a GitHub repository checkout.
+See [github-issue-autocomplete.ts](vscode://file//Users/xuzh/git/pi/packages/coding-agent/examples/extensions/github-issue-autocomplete.ts:1:1) for a complete example that preloads the latest open GitHub issues with `gh issue list` and filters them locally for fast `#...` completion. It requires GitHub CLI (`gh`) and a GitHub repository checkout.
 
 ### Custom Components
 
@@ -3109,7 +3109,7 @@ const result = await ctx.ui.custom<string | null>(
 
 A focused visible overlay can reclaim input after temporary non-overlay custom UI closes. If you intentionally want another component to keep input while the overlay stays visible, call `handle.unfocus({ target })`. Passing `{ target: null }` releases the overlay without focusing another component.
 
-See [`OverlayOptions` and `OverlayHandle`](https://github.com/earendil-works/pi/blob/main/packages/tui/src/tui.ts) for the full API and [overlay-qa-tests.ts](../examples/extensions/overlay-qa-tests.ts) for examples.
+See [`OverlayOptions` and `OverlayHandle`](vscode://file//Users/xuzh/git/pi/packages/tui/src/tui.ts:1:1) for the full API and [overlay-qa-tests.ts](vscode://file//Users/xuzh/git/pi/packages/coding-agent/examples/extensions/overlay-qa-tests.ts:1:1) for examples.
 
 ### Custom Editor
 
@@ -3161,7 +3161,7 @@ ctx.ui.setEditorComponent((tui, theme, keybindings) =>
 );
 ```
 
-See [modal-editor.ts](../examples/extensions/modal-editor.ts) for a complete example with a mode indicator.
+See [modal-editor.ts](vscode://file//Users/xuzh/git/pi/packages/coding-agent/examples/extensions/modal-editor.ts:1:1) for a complete example with a mode indicator.
 
 ### Message and Entry Rendering
 

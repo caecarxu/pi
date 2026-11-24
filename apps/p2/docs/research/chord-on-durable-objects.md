@@ -858,8 +858,8 @@ not whether plugins can be composed without hot reload.
   [Node manager](../../../../packages/chord/src/old/manager.ts).
 - [Durable Cloudflare storage][repo-storage];
   [storage usage](../../../../packages/durable/README.md#storage).
-- [Cloudflare codemode](../../../../packages/codemode/src/cloudflare.ts),
-  [remote protocol](../../../../packages/codemode/src/runtime/remote.ts).
+- [Cloudflare codemode](vscode://file/Users/xuzh/git/pi/packages/codemode/src/cloudflare.ts:1:1),
+  [remote protocol](vscode://file/Users/xuzh/git/pi/packages/codemode/src/runtime/remote.ts:1:1).
 
 ### Platform documentation
 
@@ -893,4 +893,4 @@ not whether plugins can be composed without hot reload.
 [azure]: https://learn.microsoft.com/en-us/azure/azure-functions/durable/durable-functions-entities
 [temporal]: https://docs.temporal.io/workflows
 [restate]: https://docs.restate.dev/foundations/services
-[repo-storage]: ../../../../packages/durable/src/storage/sqlite/cloudflare.ts
+[repo-storage]: vscode://file//Users/xuzh/git/pi/packages/durable/src/storage/sqlite/cloudflare.ts:1:1

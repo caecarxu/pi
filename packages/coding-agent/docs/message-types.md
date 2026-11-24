@@ -6,9 +6,9 @@ Message timestamps are Unix timestamps in milliseconds. They are different from 
 
 Source definitions:
 
-- [`packages/ai/src/types.ts`](https://github.com/earendil-works/pi/blob/main/packages/ai/src/types.ts) defines provider-facing messages and content blocks.
-- [`packages/agent/src/types.ts`](https://github.com/earendil-works/pi/blob/main/packages/agent/src/types.ts) defines the extensible `AgentMessage` union.
-- [`packages/coding-agent/src/core/messages.ts`](https://github.com/earendil-works/pi/blob/main/packages/coding-agent/src/core/messages.ts) adds coding-agent message roles.
+- [`packages/ai/src/types.ts`](vscode://file//Users/xuzh/git/pi/packages/ai/src/types.ts:1:1) defines provider-facing messages and content blocks.
+- [`packages/agent/src/types.ts`](vscode://file//Users/xuzh/git/pi/packages/agent/src/types.ts:1:1) defines the extensible `AgentMessage` union.
+- [`packages/coding-agent/src/core/messages.ts`](vscode://file//Users/xuzh/git/pi/packages/coding-agent/src/core/messages.ts:1:1) adds coding-agent message roles.
 
 ## Content blocks
 

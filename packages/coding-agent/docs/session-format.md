@@ -32,11 +32,11 @@ Existing sessions are automatically migrated to the current version (v3) when lo
 ## Source Files
 
 Source on GitHub ([pi](https://github.com/earendil-works/pi)):
-- [`packages/coding-agent/src/core/session-manager.ts`](https://github.com/earendil-works/pi/blob/main/packages/coding-agent/src/core/session-manager.ts) - Session entry types and SessionManager
+- [`packages/coding-agent/src/core/session-manager.ts`](vscode://file//Users/xuzh/git/pi/packages/coding-agent/src/core/session-manager.ts:1:1) - Session entry types and SessionManager
 - [Message Types](message-types.md) - Shared message and content-block reference
-- [`packages/coding-agent/src/core/messages.ts`](https://github.com/earendil-works/pi/blob/main/packages/coding-agent/src/core/messages.ts) - Extended message types
-- [`packages/ai/src/types.ts`](https://github.com/earendil-works/pi/blob/main/packages/ai/src/types.ts) - Base message and content-block types
-- [`packages/agent/src/types.ts`](https://github.com/earendil-works/pi/blob/main/packages/agent/src/types.ts) - Extensible `AgentMessage` union
+- [`packages/coding-agent/src/core/messages.ts`](vscode://file//Users/xuzh/git/pi/packages/coding-agent/src/core/messages.ts:1:1) - Extended message types
+- [`packages/ai/src/types.ts`](vscode://file//Users/xuzh/git/pi/packages/ai/src/types.ts:1:1) - Base message and content-block types
+- [`packages/agent/src/types.ts`](vscode://file//Users/xuzh/git/pi/packages/agent/src/types.ts:1:1) - Extensible `AgentMessage` union
 
 For TypeScript definitions in your project, inspect `node_modules/@earendil-works/pi-coding-agent/dist/` and `node_modules/@earendil-works/pi-ai/dist/`.
 

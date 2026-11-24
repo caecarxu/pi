@@ -8,9 +8,9 @@ Pi 在 SDK 状态、生命周期事件、RPC 响应和持久化会话消息条�
 
 源定义：
 
-- [`packages/ai/src/types.ts`](https://github.com/earendil-works/pi/blob/main/packages/ai/src/types.ts) 定义面向 provider 的消息和内容块。
-- [`packages/agent/src/types.ts`](https://github.com/earendil-works/pi/blob/main/packages/agent/src/types.ts) 定义可扩展的 `AgentMessage` 联合类型。
-- [`packages/coding-agent/src/core/messages.ts`](https://github.com/earendil-works/pi/blob/main/packages/coding-agent/src/core/messages.ts) 添加 coding-agent 消息角色。
+- [`packages/ai/src/types.ts`](vscode://file//Users/xuzh/git/pi/packages/ai/src/types.ts:1:1) 定义面向 provider 的消息和内容块。
+- [`packages/agent/src/types.ts`](vscode://file//Users/xuzh/git/pi/packages/agent/src/types.ts:1:1) 定义可扩展的 `AgentMessage` 联合类型。
+- [`packages/coding-agent/src/core/messages.ts`](vscode://file//Users/xuzh/git/pi/packages/coding-agent/src/core/messages.ts:1:1) 添加 coding-agent 消息角色。
 
 ## 内容块
 

@@ -71,7 +71,7 @@ Extension dialogs form a request-response subprotocol. Other extension UI update
 
 For Node.js or TypeScript integrations, prefer `RpcClient` from `@earendil-works/pi-coding-agent`. It starts a Pi RPC child process, correlates requests, exposes typed command methods, and delivers session events to listeners.
 
-The [RPC client example](../examples/rpc-client.ts) sends one prompt, streams text and tool activity, waits for `agent_settled`, and shuts down the child process. It is included in the repository’s TypeScript checks.
+The [RPC client example](vscode://file//Users/xuzh/git/pi/packages/coding-agent/examples/rpc-client.ts:1:1) sends one prompt, streams text and tool activity, waits for `agent_settled`, and shuts down the child process. It is included in the repository’s TypeScript checks.
 
 `RpcClient.promptAndWait()` installs its event listener before sending the prompt, avoiding a race with fast completions. For separate operations, subscribe before calling `prompt()` and call `waitForIdle()` only while a run is active.
 
@@ -96,8 +96,8 @@ Change the top-level `bin` field to set the executable name. These settings affe
 
 ## Examples and references
 
-- [RPC client](../examples/rpc-client.ts): typed Node.js integration
-- [RPC extension UI](../examples/rpc-extension-ui.ts): custom terminal client with extension dialogs
+- [RPC client](vscode://file//Users/xuzh/git/pi/packages/coding-agent/examples/rpc-client.ts:1:1): typed Node.js integration
+- [RPC extension UI](vscode://file//Users/xuzh/git/pi/packages/coding-agent/examples/rpc-extension-ui.ts:1:1): custom terminal client with extension dialogs
 - [Command Line](cli.md): startup options and mode selection
 - [JSON Event Stream](json.md): JSON event reference
 - [RPC Protocol](rpc.md): RPC lifecycle, framing, errors, and shutdown

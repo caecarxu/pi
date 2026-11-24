@@ -19,7 +19,7 @@ try {
 
 This uses the working directory, discovered resources, stored settings, and configured credentials. `prompt()` resolves when the run finishes.
 
-The [complete minimal example](../examples/sdk/01-minimal.ts) also streams text events. All [SDK examples](../examples/sdk/) are typechecked with the repository.
+The [complete minimal example](vscode://file//Users/xuzh/git/pi/packages/coding-agent/examples/sdk/01-minimal.ts:1:1) also streams text events. All [SDK examples](../examples/sdk/) are typechecked with the repository.
 
 <a id="session-management"></a>
 
@@ -49,7 +49,7 @@ const { session } = await createAgentSession({
 });
 ```
 
-See the checked [sessions example](../examples/sdk/11-sessions.ts) for creating, opening, continuing, listing, and forking sessions. [Session File Format](session-format.md) defines the persisted JSONL contract, and [Message Types](message-types.md) defines transcript values. For exact methods and signatures, use the exported TypeScript declarations or [`session-manager.ts`](../src/core/session-manager.ts).
+See the checked [sessions example](vscode://file//Users/xuzh/git/pi/packages/coding-agent/examples/sdk/11-sessions.ts:1:1) for creating, opening, continuing, listing, and forking sessions. [Session File Format](session-format.md) defines the persisted JSONL contract, and [Message Types](message-types.md) defines transcript values. For exact methods and signatures, use the exported TypeScript declarations or [`session-manager.ts`](vscode://file//Users/xuzh/git/pi/packages/coding-agent/src/core/session-manager.ts:1:1).
 
 `cwd` selects the workspace used for project resource discovery, context files, session grouping, and built-in tool paths. Pass it explicitly when the target differs from `process.cwd()`.
 
@@ -57,7 +57,7 @@ See the checked [sessions example](../examples/sdk/11-sessions.ts) for creating,
 
 `AgentSessionRuntime` adds `newSession()`, `switchSession()`, `fork()`, and `importFromJsonl()`. Each operation replaces the active `AgentSession` and recreates services for the target working directory.
 
-After a runtime replacement, subscriptions belong to the old `AgentSession` and must be rebound. See the [session runtime example](../examples/sdk/13-session-runtime.ts).
+After a runtime replacement, subscriptions belong to the old `AgentSession` and must be rebound. See the [session runtime example](vscode://file//Users/xuzh/git/pi/packages/coding-agent/examples/sdk/13-session-runtime.ts:1:1).
 
 ## Prompting
 
@@ -113,28 +113,28 @@ Inline extension factories can be supplied through `DefaultResourceLoader`. Give
 
 <a id="codemode-mcp"></a>
 
-The CLI loads `codemode`, `tool_search`, and MCP as built-in extensions. SDK sessions do not; add `createCodemodeExtension()`, `createToolSearchExtension()`, and `createMcpExtension()` to the `extensionFactories` of `DefaultResourceLoader`. `codemode` and `tool_search` are registered inactive: enable them through the `defaultTools` setting (`["+codemode", "+tool_search"]` keeps the other default tools), or let the MCP extension activate them: `codemode` for servers with `codemode` exposure, `tool_search` for servers with `deferred` exposure. The MCP extension connects its servers on `session_start`, so call `session.bindExtensions()`. See [Codemode and MCP](../examples/sdk/14-codemode-mcp.ts).
+The CLI loads `codemode`, `tool_search`, and MCP as built-in extensions. SDK sessions do not; add `createCodemodeExtension()`, `createToolSearchExtension()`, and `createMcpExtension()` to the `extensionFactories` of `DefaultResourceLoader`. `codemode` and `tool_search` are registered inactive: enable them through the `defaultTools` setting (`["+codemode", "+tool_search"]` keeps the other default tools), or let the MCP extension activate them: `codemode` for servers with `codemode` exposure, `tool_search` for servers with `deferred` exposure. The MCP extension connects its servers on `session_start`, so call `session.bindExtensions()`. See [Codemode and MCP](vscode://file//Users/xuzh/git/pi/packages/coding-agent/examples/sdk/14-codemode-mcp.ts:1:1).
 
-See the focused examples for [models](../examples/sdk/02-custom-model.ts), [tools](../examples/sdk/05-tools.ts), [extensions](../examples/sdk/06-extensions.ts), and [full control](../examples/sdk/12-full-control.ts).
+See the focused examples for [models](vscode://file//Users/xuzh/git/pi/packages/coding-agent/examples/sdk/02-custom-model.ts:1:1), [tools](vscode://file//Users/xuzh/git/pi/packages/coding-agent/examples/sdk/05-tools.ts:1:1), [extensions](vscode://file//Users/xuzh/git/pi/packages/coding-agent/examples/sdk/06-extensions.ts:1:1), and [full control](vscode://file//Users/xuzh/git/pi/packages/coding-agent/examples/sdk/12-full-control.ts:1:1).
 
 ## Examples
 
 | Example | Purpose |
 |---|---|
-| [Minimal](../examples/sdk/01-minimal.ts) | Create, prompt, observe, and dispose a session |
-| [Custom model](../examples/sdk/02-custom-model.ts) | Select a model and thinking level |
-| [System prompt](../examples/sdk/03-custom-prompt.ts) | Replace or append to the system prompt |
-| [Skills](../examples/sdk/04-skills.ts) | Discover, filter, and add skills |
-| [Tools](../examples/sdk/05-tools.ts) | Select built-in tools and their working directory |
-| [Extensions](../examples/sdk/06-extensions.ts) | Load file-based and inline extensions |
-| [Context files](../examples/sdk/07-context-files.ts) | Add or replace project instructions |
-| [Prompt templates](../examples/sdk/08-prompt-templates.ts) | Add file-style prompt templates |
-| [Credentials](../examples/sdk/09-api-keys-and-oauth.ts) | Configure credential and model storage |
-| [Settings](../examples/sdk/10-settings.ts) | Supply file-backed or in-memory settings |
-| [Sessions](../examples/sdk/11-sessions.ts) | Control session persistence and restoration |
-| [Full control](../examples/sdk/12-full-control.ts) | Replace default discovery and state services |
-| [Session runtime](../examples/sdk/13-session-runtime.ts) | Replace the active session safely |
-| [Codemode and MCP](../examples/sdk/14-codemode-mcp.ts) | Add the `codemode`, `tool_search`, and MCP extensions |
+| [Minimal](vscode://file//Users/xuzh/git/pi/packages/coding-agent/examples/sdk/01-minimal.ts:1:1) | Create, prompt, observe, and dispose a session |
+| [Custom model](vscode://file//Users/xuzh/git/pi/packages/coding-agent/examples/sdk/02-custom-model.ts:1:1) | Select a model and thinking level |
+| [System prompt](vscode://file//Users/xuzh/git/pi/packages/coding-agent/examples/sdk/03-custom-prompt.ts:1:1) | Replace or append to the system prompt |
+| [Skills](vscode://file//Users/xuzh/git/pi/packages/coding-agent/examples/sdk/04-skills.ts:1:1) | Discover, filter, and add skills |
+| [Tools](vscode://file//Users/xuzh/git/pi/packages/coding-agent/examples/sdk/05-tools.ts:1:1) | Select built-in tools and their working directory |
+| [Extensions](vscode://file//Users/xuzh/git/pi/packages/coding-agent/examples/sdk/06-extensions.ts:1:1) | Load file-based and inline extensions |
+| [Context files](vscode://file//Users/xuzh/git/pi/packages/coding-agent/examples/sdk/07-context-files.ts:1:1) | Add or replace project instructions |
+| [Prompt templates](vscode://file//Users/xuzh/git/pi/packages/coding-agent/examples/sdk/08-prompt-templates.ts:1:1) | Add file-style prompt templates |
+| [Credentials](vscode://file//Users/xuzh/git/pi/packages/coding-agent/examples/sdk/09-api-keys-and-oauth.ts:1:1) | Configure credential and model storage |
+| [Settings](vscode://file//Users/xuzh/git/pi/packages/coding-agent/examples/sdk/10-settings.ts:1:1) | Supply file-backed or in-memory settings |
+| [Sessions](vscode://file//Users/xuzh/git/pi/packages/coding-agent/examples/sdk/11-sessions.ts:1:1) | Control session persistence and restoration |
+| [Full control](vscode://file//Users/xuzh/git/pi/packages/coding-agent/examples/sdk/12-full-control.ts:1:1) | Replace default discovery and state services |
+| [Session runtime](vscode://file//Users/xuzh/git/pi/packages/coding-agent/examples/sdk/13-session-runtime.ts:1:1) | Replace the active session safely |
+| [Codemode and MCP](vscode://file//Users/xuzh/git/pi/packages/coding-agent/examples/sdk/14-codemode-mcp.ts:1:1) | Add the `codemode`, `tool_search`, and MCP extensions |
 
 <a id="exports"></a>
 

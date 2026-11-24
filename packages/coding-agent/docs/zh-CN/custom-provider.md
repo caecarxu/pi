@@ -175,7 +175,7 @@ OAuth 回调不依赖特定 UI。它们可以打开授权 URL、显示设备代�
 
 ## 实现自定义流式处理
 
-只有在现有 API 实现都无法表示该服务时，才实现 `streamSimple`。请先研究 [`packages/ai/src/api`](https://github.com/earendil-works/pi/tree/main/packages/ai/src/api) 下的实现。
+只有在现有 API 实现都无法表示该服务时，才实现 `streamSimple`。请先研究 [`packages/ai/src/api`](vscode://file//Users/xuzh/git/pi/packages/ai/src/api) 下的实现。
 
 该流接收经过规范化的 `TranscriptContext`。系统提示词和工具声明位于 transcript 的系统消息中，因此应使用 `getCurrentSystemPrompt(context.messages)` 和 `getCurrentTools(context.messages)` 读取，而不要期待 `context.systemPrompt` 或 `context.tools`。如果模型支持在对话中途接收系统消息，可以将这些消息原样传入；否则，调用 `collapseSystemMessages(context)` 将后续系统消息折叠到首条系统消息中。
 
@@ -224,6 +224,6 @@ OAuth 回调不依赖特定 UI。它们可以打开授权 URL、显示设备代�
 - 跨供应商的会话交接
 - 认证刷新和取消
 
-[`packages/ai/test` 下的供应商测试](https://github.com/earendil-works/pi/tree/main/packages/ai/test)定义了内置供应商应遵循的行为。请改造相关测试套件，而不要只依赖手动提示进行验证。
+[`packages/ai/test` 下的供应商测试](vscode://file//Users/xuzh/git/pi/packages/ai/test)定义了内置供应商应遵循的行为。请改造相关测试套件，而不要只依赖手动提示进行验证。
 
 开发期间可直接运行扩展；之后将其移到 Pi 可发现的扩展目录，或通过 [Pi 软件包](packages.md)分发。在活动会话中更改了已发现的供应商扩展后，使用 `/reload`。

@@ -215,7 +215,7 @@ type JsonAgentSessionEvent =
     };
 ```
 
-Use the exported `JsonAgentSessionEvent` type from `@earendil-works/pi-coding-agent`. Its implementation is in [`json-event.ts`](https://github.com/earendil-works/pi/blob/main/packages/coding-agent/src/modes/json-event.ts).
+Use the exported `JsonAgentSessionEvent` type from `@earendil-works/pi-coding-agent`. Its implementation is in [`json-event.ts`](vscode://file//Users/xuzh/git/pi/packages/coding-agent/src/modes/json-event.ts:1:1).
 
 ## Example
 
