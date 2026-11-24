@@ -5,11 +5,11 @@
 本文介绍自动压缩、分支摘要、持久化条目和扩展钩子。有关用户操作流程，请参阅[会话与上下文](./sessions.md#manage-conversation-context)。
 
 **源文件**（[pi](https://github.com/earendil-works/pi)）：
-- [`packages/coding-agent/src/core/compaction/compaction.ts`](vscode://file//Users/xuzh/git/pi/packages/coding-agent/src/core/compaction/compaction.ts:1:1) - 自动压缩逻辑
-- [`packages/coding-agent/src/core/compaction/branch-summarization.ts`](vscode://file//Users/xuzh/git/pi/packages/coding-agent/src/core/compaction/branch-summarization.ts:1:1) - 分支摘要
-- [`packages/coding-agent/src/core/compaction/utils.ts`](vscode://file//Users/xuzh/git/pi/packages/coding-agent/src/core/compaction/utils.ts:1:1) - 共享工具（文件跟踪、序列化）
-- [`packages/coding-agent/src/core/session-manager.ts`](vscode://file//Users/xuzh/git/pi/packages/coding-agent/src/core/session-manager.ts:1:1) - 条目类型（`CompactionEntry`、`BranchSummaryEntry`）
-- [`packages/coding-agent/src/core/extensions/types.ts`](vscode://file//Users/xuzh/git/pi/packages/coding-agent/src/core/extensions/types.ts:1:1) - 扩展事件类型
+- [`packages/coding-agent/src/core/compaction/compaction.ts`](vscode://file/Users/Shared/pi-code/packages/coding-agent/src/core/compaction/compaction.ts:1:1) - 自动压缩逻辑
+- [`packages/coding-agent/src/core/compaction/branch-summarization.ts`](vscode://file/Users/Shared/pi-code/packages/coding-agent/src/core/compaction/branch-summarization.ts:1:1) - 分支摘要
+- [`packages/coding-agent/src/core/compaction/utils.ts`](vscode://file/Users/Shared/pi-code/packages/coding-agent/src/core/compaction/utils.ts:1:1) - 共享工具（文件跟踪、序列化）
+- [`packages/coding-agent/src/core/session-manager.ts`](vscode://file/Users/Shared/pi-code/packages/coding-agent/src/core/session-manager.ts:1:1) - 条目类型（`CompactionEntry`、`BranchSummaryEntry`）
+- [`packages/coding-agent/src/core/extensions/types.ts`](vscode://file/Users/Shared/pi-code/packages/coding-agent/src/core/extensions/types.ts:1:1) - 扩展事件类型
 
 如需在项目中查看 TypeScript 定义，请检查 `node_modules/@earendil-works/pi-coding-agent/dist/`。
 
@@ -141,7 +141,7 @@ LLM 看到的内容：
 
 ### CompactionEntry 结构
 
-定义于 [`session-manager.ts`](vscode://file//Users/xuzh/git/pi/packages/coding-agent/src/core/session-manager.ts:1:1)：
+定义于 [`session-manager.ts`](vscode://file/Users/Shared/pi-code/packages/coding-agent/src/core/session-manager.ts:1:1)：
 
 ```typescript
 interface CompactionEntry<T = unknown> {
@@ -166,7 +166,7 @@ interface CompactionDetails {
 
 扩展可以在 `details` 中存储任何可序列化为 JSON 的数据。默认压缩会跟踪文件操作，但自定义扩展实现可以使用自己的结构。只要可用，Pi 生成的摘要和扩展提供的摘要都会保存其 LLM `usage`，使会话总用量包含摘要工作。
 
-有关实现，请参阅 [`prepareCompaction()`](vscode://file//Users/xuzh/git/pi/packages/coding-agent/src/core/compaction/compaction.ts:1:1) 和 [`compact()`](vscode://file//Users/xuzh/git/pi/packages/coding-agent/src/core/compaction/compaction.ts:1:1)。对于直接以代码方式生成摘要的场景，`generateSummary()` 返回摘要文本，`generateSummaryWithUsage()` 返回 `{ text, usage }`。
+有关实现，请参阅 [`prepareCompaction()`](vscode://file/Users/Shared/pi-code/packages/coding-agent/src/core/compaction/compaction.ts:1:1) 和 [`compact()`](vscode://file/Users/Shared/pi-code/packages/coding-agent/src/core/compaction/compaction.ts:1:1)。对于直接以代码方式生成摘要的场景，`generateSummary()` 返回摘要文本，`generateSummaryWithUsage()` 返回 `{ text, usage }`。
 
 ## 分支摘要
 
@@ -207,7 +207,7 @@ interface CompactionDetails {
 
 ### BranchSummaryEntry 结构
 
-定义于 [`session-manager.ts`](vscode://file//Users/xuzh/git/pi/packages/coding-agent/src/core/session-manager.ts:1:1)：
+定义于 [`session-manager.ts`](vscode://file/Users/Shared/pi-code/packages/coding-agent/src/core/session-manager.ts:1:1)：
 
 ```typescript
 interface BranchSummaryEntry<T = unknown> {
@@ -231,7 +231,7 @@ interface BranchSummaryDetails {
 
 与压缩相同，扩展可以在 `details` 中存储自定义数据。
 
-有关实现，请参阅 [`collectEntriesForBranchSummary()`](vscode://file//Users/xuzh/git/pi/packages/coding-agent/src/core/compaction/branch-summarization.ts:1:1)、[`prepareBranchEntries()`](vscode://file//Users/xuzh/git/pi/packages/coding-agent/src/core/compaction/branch-summarization.ts:1:1) 和 [`generateBranchSummary()`](vscode://file//Users/xuzh/git/pi/packages/coding-agent/src/core/compaction/branch-summarization.ts:1:1)。
+有关实现，请参阅 [`collectEntriesForBranchSummary()`](vscode://file/Users/Shared/pi-code/packages/coding-agent/src/core/compaction/branch-summarization.ts:1:1)、[`prepareBranchEntries()`](vscode://file/Users/Shared/pi-code/packages/coding-agent/src/core/compaction/branch-summarization.ts:1:1) 和 [`generateBranchSummary()`](vscode://file/Users/Shared/pi-code/packages/coding-agent/src/core/compaction/branch-summarization.ts:1:1)。
 
 ## 摘要格式
 
@@ -277,7 +277,7 @@ path/to/changed.ts
 
 ### 消息序列化
 
-摘要前，消息会通过 [`serializeConversation()`](vscode://file//Users/xuzh/git/pi/packages/coding-agent/src/core/compaction/utils.ts:1:1) 序列化为文本：
+摘要前，消息会通过 [`serializeConversation()`](vscode://file/Users/Shared/pi-code/packages/coding-agent/src/core/compaction/utils.ts:1:1) 序列化为文本：
 
 ```
 [User]: 用户说的话
@@ -294,7 +294,7 @@ Thinking 块会被省略。Provider 会返回对真实推理的摘要，而重�
 
 ## 通过扩展自定义摘要
 
-扩展可以拦截并自定义压缩和分支摘要。事件类型定义请参阅 [`extensions/types.ts`](vscode://file//Users/xuzh/git/pi/packages/coding-agent/src/core/extensions/types.ts:1:1)。
+扩展可以拦截并自定义压缩和分支摘要。事件类型定义请参阅 [`extensions/types.ts`](vscode://file/Users/Shared/pi-code/packages/coding-agent/src/core/extensions/types.ts:1:1)。
 
 ### session_before_compact
 
@@ -367,7 +367,7 @@ pi.on("session_before_compact", async (event, ctx) => {
 });
 ```
 
-完整示例请参阅 [custom-compaction.ts](vscode://file//Users/xuzh/git/pi/packages/coding-agent/examples/extensions/custom-compaction.ts:1:1)，其中演示了如何使用不同的模型。
+完整示例请参阅 [custom-compaction.ts](vscode://file/Users/Shared/pi-code/packages/coding-agent/examples/extensions/custom-compaction.ts:1:1)，其中演示了如何使用不同的模型。
 
 ### session_compact_failed
 

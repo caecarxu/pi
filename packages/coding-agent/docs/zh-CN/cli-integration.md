@@ -73,7 +73,7 @@ RPC 命令可以更改模型、检查状态、管理会话、运行 shell 命令
 
 对于 Node.js 或 TypeScript 集成，优先使用 `@earendil-works/pi-coding-agent` 中的 `RpcClient`。它会启动 Pi RPC 子进程、关联请求、提供带类型的命令方法，并将会话事件传递给监听器。
 
-[RPC 客户端示例](vscode://file//Users/xuzh/git/pi/packages/coding-agent/examples/rpc-client.ts:1:1)会发送一条提示、流式传输文本和工具活动、等待 `agent_settled`，然后关闭子进程。该示例包含在仓库的 TypeScript 检查中。
+[RPC 客户端示例](vscode://file/Users/Shared/pi-code/packages/coding-agent/examples/rpc-client.ts:1:1)会发送一条提示、流式传输文本和工具活动、等待 `agent_settled`，然后关闭子进程。该示例包含在仓库的 TypeScript 检查中。
 
 `RpcClient.promptAndWait()` 会在发送提示前安装事件监听器，避免运行过快而产生竞态。若分开执行操作，应先订阅再调用 `prompt()`；只有运行处于活动状态时才调用 `waitForIdle()`。
 
@@ -98,8 +98,8 @@ RPC 命令可以更改模型、检查状态、管理会话、运行 shell 命令
 
 ## 示例和参考
 
-- [RPC 客户端](vscode://file//Users/xuzh/git/pi/packages/coding-agent/examples/rpc-client.ts:1:1)：带类型的 Node.js 集成
-- [RPC 扩展 UI](vscode://file//Users/xuzh/git/pi/packages/coding-agent/examples/rpc-extension-ui.ts:1:1)：支持扩展对话框的自定义终端客户端
+- [RPC 客户端](vscode://file/Users/Shared/pi-code/packages/coding-agent/examples/rpc-client.ts:1:1)：带类型的 Node.js 集成
+- [RPC 扩展 UI](vscode://file/Users/Shared/pi-code/packages/coding-agent/examples/rpc-extension-ui.ts:1:1)：支持扩展对话框的自定义终端客户端
 - [命令行](cli.md)：启动选项和模式选择
 - [JSON 事件流](json.md)：JSON 事件参考
 - [RPC 协议](rpc.md)：RPC 生命周期、分帧、错误和关闭

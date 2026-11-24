@@ -17,7 +17,7 @@ flowchart LR
     compact[压缩摘要] --> projection
 ```
 
-活动叶子和只追加的会话树由 [`SessionManager`](vscode://file//Users/xuzh/git/pi/packages/coding-agent/src/core/session-manager.ts:987:1) 管理；分支选择和模型上下文投影分别见 [`branch()`](vscode://file//Users/xuzh/git/pi/packages/coding-agent/src/core/session-manager.ts:1599:1) 与 [`buildSessionProjection()`](vscode://file//Users/xuzh/git/pi/packages/coding-agent/src/core/session-manager.ts:1513:1)。分叉会通过 [`forkFrom()`](vscode://file//Users/xuzh/git/pi/packages/coding-agent/src/core/session-manager.ts:1835:1) 创建独立会话文件。
+活动叶子和只追加的会话树由 [`SessionManager`](vscode://file/Users/Shared/pi-code/packages/coding-agent/src/core/session-manager.ts:987:1) 管理；分支选择和模型上下文投影分别见 [`branch()`](vscode://file/Users/Shared/pi-code/packages/coding-agent/src/core/session-manager.ts:1599:1) 与 [`buildSessionProjection()`](vscode://file/Users/Shared/pi-code/packages/coding-agent/src/core/session-manager.ts:1513:1)。分叉会通过 [`forkFrom()`](vscode://file/Users/Shared/pi-code/packages/coding-agent/src/core/session-manager.ts:1835:1) 创建独立会话文件。
 
 ## 继续或切换会话
 

@@ -133,7 +133,7 @@ process.stdin.close()
 process.wait()
 ```
 
-对于维护中的 TypeScript 客户端，请使用经过检查的 [RPC 客户端示例](vscode://file//Users/xuzh/git/pi/packages/coding-agent/examples/rpc-client.ts:1:1)。该示例指向 `dist/cli.js`，因此需要已构建的 Pi CLI。
+对于维护中的 TypeScript 客户端，请使用经过检查的 [RPC 客户端示例](vscode://file/Users/Shared/pi-code/packages/coding-agent/examples/rpc-client.ts:1:1)。该示例指向 `dist/cli.js`，因此需要已构建的 Pi CLI。
 
 ## 参考
 
@@ -142,8 +142,8 @@ process.wait()
 - [RPC 扩展 UI](rpc-extension-ui.md)：对话框、通知、响应和限制
 - [消息类型](message-types.md)：响应和事件中使用的消息与内容块
 - [会话文件格式](session-format.md)：会话命令返回的条目
-- [`rpc-types.ts`](vscode://file//Users/xuzh/git/pi/packages/coding-agent/src/modes/rpc/rpc-types.ts:1:1)：导出的 TypeScript 协议定义
-- [`RpcClient`](vscode://file//Users/xuzh/git/pi/packages/coding-agent/src/modes/rpc/rpc-client.ts:1:1)：子进程客户端实现
+- [`rpc-types.ts`](vscode://file/Users/Shared/pi-code/packages/coding-agent/src/modes/rpc/rpc-types.ts:1:1)：导出的 TypeScript 协议定义
+- [`RpcClient`](vscode://file/Users/Shared/pi-code/packages/coding-agent/src/modes/rpc/rpc-client.ts:1:1)：子进程客户端实现
 
 ## 已迁移的参考锚点
 

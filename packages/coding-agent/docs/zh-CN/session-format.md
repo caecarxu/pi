@@ -34,11 +34,11 @@ Pi 也支持在 `/resume` 中交互式删除会话（选择会话，按 `Ctrl+D`
 
 GitHub 上的源代码（[pi](https://github.com/earendil-works/pi)）：
 
-- [`packages/coding-agent/src/core/session-manager.ts`](vscode://file//Users/xuzh/git/pi/packages/coding-agent/src/core/session-manager.ts:1:1)：会话条目类型和 SessionManager
+- [`packages/coding-agent/src/core/session-manager.ts`](vscode://file/Users/Shared/pi-code/packages/coding-agent/src/core/session-manager.ts:1:1)：会话条目类型和 SessionManager
 - [消息类型](message-types.md)：共享消息和内容块参考
-- [`packages/coding-agent/src/core/messages.ts`](vscode://file//Users/xuzh/git/pi/packages/coding-agent/src/core/messages.ts:1:1)：扩展消息类型
-- [`packages/ai/src/types.ts`](vscode://file//Users/xuzh/git/pi/packages/ai/src/types.ts:1:1)：基础消息和内容块类型
-- [`packages/agent/src/types.ts`](vscode://file//Users/xuzh/git/pi/packages/agent/src/types.ts:1:1)：可扩展的 `AgentMessage` 联合类型
+- [`packages/coding-agent/src/core/messages.ts`](vscode://file/Users/Shared/pi-code/packages/coding-agent/src/core/messages.ts:1:1)：扩展消息类型
+- [`packages/ai/src/types.ts`](vscode://file/Users/Shared/pi-code/packages/ai/src/types.ts:1:1)：基础消息和内容块类型
+- [`packages/agent/src/types.ts`](vscode://file/Users/Shared/pi-code/packages/agent/src/types.ts:1:1)：可扩展的 `AgentMessage` 联合类型
 
 如需在项目中查看 TypeScript 定义，请检查 `node_modules/@earendil-works/pi-coding-agent/dist/` 和 `node_modules/@earendil-works/pi-ai/dist/`。
 

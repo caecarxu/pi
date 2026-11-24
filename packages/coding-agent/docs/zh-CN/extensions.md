@@ -907,7 +907,7 @@ pi.on("provider_stream_event", (event, ctx) => {
 });
 ```
 
-`event.data` 不一定是原始 HTTP 字节或 SSE 帧。请将其视为只读，因为修改可能影响规范化。处理器会按流顺序等待，因此运行缓慢的处理器会延迟读取流。处理器错误会被报告，但不会改变提供方响应。可选的原始事件查看器会按 assistant 消息分组；参见 [`debug-provider.ts`](vscode://file//Users/xuzh/git/pi/packages/coding-agent/examples/extensions/debug-provider.ts:1:1)。
+`event.data` 不一定是原始 HTTP 字节或 SSE 帧。请将其视为只读，因为修改可能影响规范化。处理器会按流顺序等待，因此运行缓慢的处理器会延迟读取流。处理器错误会被报告，但不会改变提供方响应。可选的原始事件查看器会按 assistant 消息分组；参见 [`debug-provider.ts`](vscode://file/Users/Shared/pi-code/packages/coding-agent/examples/extensions/debug-provider.ts:1:1)。
 
 #### cache_warming_decision
 
@@ -1156,7 +1156,7 @@ pi.on("input", async (event, ctx) => {
 - `transform` - 修改文本/图像，然后继续展开
 - `handled` - 完全跳过 agent（第一个返回此值的处理器生效）
 
-转换会在各处理器之间链式传递。有关根据 `streamingBehavior` 进行路由的示例，请参见 [input-transform.ts](vscode://file//Users/xuzh/git/pi/packages/coding-agent/examples/extensions/input-transform.ts:1:1) 和 [input-transform-streaming.ts](vscode://file//Users/xuzh/git/pi/packages/coding-agent/examples/extensions/input-transform-streaming.ts:1:1)。
+转换会在各处理器之间链式传递。有关根据 `streamingBehavior` 进行路由的示例，请参见 [input-transform.ts](vscode://file/Users/Shared/pi-code/packages/coding-agent/examples/extensions/input-transform.ts:1:1) 和 [input-transform-streaming.ts](vscode://file/Users/Shared/pi-code/packages/coding-agent/examples/extensions/input-transform-streaming.ts:1:1)。
 
 <a id="use-extension-context"></a>
 
@@ -1562,7 +1562,7 @@ pi.on("agent_settled", () => {
 });
 ```
 
-`expandPromptTemplates: true` 会将文本作为命令分派。未启用此选项，或通过 `deliverAs` 排队时，文本会作为普通 user 消息发送给模型。参见 [reload-runtime.ts](vscode://file//Users/xuzh/git/pi/packages/coding-agent/examples/extensions/reload-runtime.ts:1:1)。
+`expandPromptTemplates: true` 会将文本作为命令分派。未启用此选项，或通过 `deliverAs` 排队时，文本会作为普通 user 消息发送给模型。参见 [reload-runtime.ts](vscode://file/Users/Shared/pi-code/packages/coding-agent/examples/extensions/reload-runtime.ts:1:1)。
 
 ## ExtensionAPI 方法 <a id="extensionapi-methods"></a>
 
@@ -1591,7 +1591,7 @@ const unsubscribe = pi.on("agent_end", async (event) => {
 
 **重要：** `promptGuidelines` 条目会直接追加到 `<rules>` 部分，不带工具名称前缀。每条规则都必须写明所指工具的名称；避免写成 "Use this tool when..."，因为 LLM 无法判断 "this" 指的是哪个工具。应写成 "Use my_tool when..."。
 
-完整示例请参见 [dynamic-tools.ts](vscode://file//Users/xuzh/git/pi/packages/coding-agent/examples/extensions/dynamic-tools.ts:1:1)。
+完整示例请参见 [dynamic-tools.ts](vscode://file/Users/Shared/pi-code/packages/coding-agent/examples/extensions/dynamic-tools.ts:1:1)。
 
 ```typescript
 import { Type } from "typebox";
@@ -1678,7 +1678,7 @@ pi.sendUserMessage("/review src/index.ts", { expandPromptTemplates: true });
 
 未处于流式生成状态时，消息会立即发送并触发新轮次。流式生成期间未提供 `deliverAs` 时，消息会被拒绝，Pi 会报告扩展错误。
 
-完整示例请参见 [send-user-message.ts](vscode://file//Users/xuzh/git/pi/packages/coding-agent/examples/extensions/send-user-message.ts:1:1)。
+完整示例请参见 [send-user-message.ts](vscode://file/Users/Shared/pi-code/packages/coding-agent/examples/extensions/send-user-message.ts:1:1)。
 
 ### pi.appendEntry(customType, data?)
 
@@ -2286,7 +2286,7 @@ pi.registerTool({
 
 **标记错误：** 要将工具执行标记为失败，可以从 `execute` 抛出错误，或返回 `isError: true` 的结果。两种方式都会向 LLM 报告错误结果；返回结果的方式还会保留 `details` 和 `structuredContent`，供渲染和脚本使用。其他返回值不会设置错误标志。
 
-**提前终止：** 从 `execute()` 返回 `terminate: true`，提示当前工具批次结束后跳过自动的后续 LLM 调用。只有该批次中所有已结束的工具结果都设置了终止标志，此设置才会生效。一个以最终结构化输出工具调用结束 agent 的最小示例请参见 [examples/extensions/structured-output.ts](vscode://file//Users/xuzh/git/pi/packages/coding-agent/examples/extensions/structured-output.ts:1:1)。
+**提前终止：** 从 `execute()` 返回 `terminate: true`，提示当前工具批次结束后跳过自动的后续 LLM 调用。只有该批次中所有已结束的工具结果都设置了终止标志，此设置才会生效。一个以最终结构化输出工具调用结束 agent 的最小示例请参见 [examples/extensions/structured-output.ts](vscode://file/Users/Shared/pi-code/packages/coding-agent/examples/extensions/structured-output.ts:1:1)。
 
 ```typescript
 // Correct: throw to signal an error
@@ -2370,7 +2370,7 @@ pi -e ./tool-override.ts
 pi --no-builtin-tools -e ./my-extension.ts
 ```
 
-有关通过日志记录和访问控制覆盖 `read` 的完整示例，请参见 [examples/extensions/tool-override.ts](vscode://file//Users/xuzh/git/pi/packages/coding-agent/examples/extensions/tool-override.ts:1:1)。
+有关通过日志记录和访问控制覆盖 `read` 的完整示例，请参见 [examples/extensions/tool-override.ts](vscode://file/Users/Shared/pi-code/packages/coding-agent/examples/extensions/tool-override.ts:1:1)。
 
 **渲染：** 内置渲染器按插槽分别继承。执行覆盖和渲染覆盖相互独立。如果覆盖工具未提供 `renderCall`，就会使用内置的 `renderCall`；未提供 `renderResult` 时，则使用内置的 `renderResult`。两者都未提供时，会自动使用完整的内置渲染器（语法高亮、差异显示等）。这样可以为内置工具添加日志或访问控制，而无需重新实现 UI。
 
@@ -2379,14 +2379,14 @@ pi --no-builtin-tools -e ./my-extension.ts
 **你的实现必须与结果结构完全一致**，包括 `details` 类型。UI 和会话逻辑依赖这些结构进行渲染和状态跟踪。
 
 内置工具的实现：
-- [read.ts](vscode://file//Users/xuzh/git/pi/packages/coding-agent/src/core/tools/read.ts:1:1) - `ReadToolDetails`
-- [bash.ts](vscode://file//Users/xuzh/git/pi/packages/coding-agent/src/core/tools/bash.ts:1:1) - `BashToolDetails`
-- [powershell.ts](vscode://file//Users/xuzh/git/pi/packages/coding-agent/src/core/tools/powershell.ts:1:1) - `PowerShellToolDetails`
-- [edit.ts](vscode://file//Users/xuzh/git/pi/packages/coding-agent/src/core/tools/edit.ts:1:1)
-- [write.ts](vscode://file//Users/xuzh/git/pi/packages/coding-agent/src/core/tools/write.ts:1:1)
-- [grep.ts](vscode://file//Users/xuzh/git/pi/packages/coding-agent/src/core/tools/grep.ts:1:1) - `GrepToolDetails`
-- [find.ts](vscode://file//Users/xuzh/git/pi/packages/coding-agent/src/core/tools/find.ts:1:1) - `FindToolDetails`
-- [ls.ts](vscode://file//Users/xuzh/git/pi/packages/coding-agent/src/core/tools/ls.ts:1:1) - `LsToolDetails`
+- [read.ts](vscode://file/Users/Shared/pi-code/packages/coding-agent/src/core/tools/read.ts:1:1) - `ReadToolDetails`
+- [bash.ts](vscode://file/Users/Shared/pi-code/packages/coding-agent/src/core/tools/bash.ts:1:1) - `BashToolDetails`
+- [powershell.ts](vscode://file/Users/Shared/pi-code/packages/coding-agent/src/core/tools/powershell.ts:1:1) - `PowerShellToolDetails`
+- [edit.ts](vscode://file/Users/Shared/pi-code/packages/coding-agent/src/core/tools/edit.ts:1:1)
+- [write.ts](vscode://file/Users/Shared/pi-code/packages/coding-agent/src/core/tools/write.ts:1:1)
+- [grep.ts](vscode://file/Users/Shared/pi-code/packages/coding-agent/src/core/tools/grep.ts:1:1) - `GrepToolDetails`
+- [find.ts](vscode://file/Users/Shared/pi-code/packages/coding-agent/src/core/tools/find.ts:1:1) - `FindToolDetails`
+- [ls.ts](vscode://file/Users/Shared/pi-code/packages/coding-agent/src/core/tools/ls.ts:1:1) - `LsToolDetails`
 
 ### 远程执行
 
@@ -2420,7 +2420,7 @@ pi.registerTool({
 
 **操作接口：** `ReadOperations`、`WriteOperations`、`EditOperations`、`BashOperations`、`PowerShellOperations`、`LsOperations`、`GrepOperations`、`FindOperations`
 
-`GrepOperations` 只负责检查目录：grep 始终会运行本地 `rg`。如需搜索远程系统，应像 [Gondolin 示例](vscode://file//Users/xuzh/git/pi/packages/coding-agent/examples/extensions/gondolin/index.ts:1:1)那样覆盖 grep 的 `execute()`。
+`GrepOperations` 只负责检查目录：grep 始终会运行本地 `rg`。如需搜索远程系统，应像 [Gondolin 示例](vscode://file/Users/Shared/pi-code/packages/coding-agent/examples/extensions/gondolin/index.ts:1:1)那样覆盖 grep 的 `execute()`。
 
 对于 `user_bash`，扩展可以通过 `createLocalBashOperations()`（或 `createLocalPowerShellOperations()`）复用 Pi 的本地 shell 后端，而无需重新实现本地进程启动、shell 解析和进程树终止。
 
@@ -2446,7 +2446,7 @@ const bashTool = createBashTool(cwd, {
 });
 ```
 
-变量语义请参见 [Shell 工具会话环境](environment-variables.md#shell-tool-session-environment)。带有 `--ssh` 标志的完整 SSH 示例请参见 [examples/extensions/ssh.ts](vscode://file//Users/xuzh/git/pi/packages/coding-agent/examples/extensions/ssh.ts:1:1)。
+变量语义请参见 [Shell 工具会话环境](environment-variables.md#shell-tool-session-environment)。带有 `--ssh` 标志的完整 SSH 示例请参见 [examples/extensions/ssh.ts](vscode://file/Users/Shared/pi-code/packages/coding-agent/examples/extensions/ssh.ts:1:1)。
 
 ### 输出截断
 
@@ -2498,7 +2498,7 @@ async execute(toolCallId, params, signal, onUpdate, ctx) {
 - 输出被截断时，务必告知 LLM，并说明在哪里可以找到完整版本
 - 在工具描述中注明截断限制
 
-有关正确截断 `rg`（ripgrep）输出的完整包装示例，请参见 [examples/extensions/truncated-tool.ts](vscode://file//Users/xuzh/git/pi/packages/coding-agent/examples/extensions/truncated-tool.ts:1:1)。
+有关正确截断 `rg`（ripgrep）输出的完整包装示例，请参见 [examples/extensions/truncated-tool.ts](vscode://file/Users/Shared/pi-code/packages/coding-agent/examples/extensions/truncated-tool.ts:1:1)。
 
 ### 多个工具
 
@@ -2522,7 +2522,7 @@ export default function (pi: ExtensionAPI) {
 
 ### 自定义渲染 <a id="custom-rendering"></a>
 
-工具可以提供 `renderCall` 和 `renderResult` 来自定义 TUI 显示。完整组件 API 请参见 [tui.md](tui.md)；工具行的组合方式请参见 [tool-execution.ts](vscode://file//Users/xuzh/git/pi/packages/coding-agent/src/modes/interactive/components/tool-execution.ts:1:1)。
+工具可以提供 `renderCall` 和 `renderResult` 来自定义 TUI 显示。完整组件 API 请参见 [tui.md](tui.md)；工具行的组合方式请参见 [tool-execution.ts](vscode://file/Users/Shared/pi-code/packages/coding-agent/src/modes/interactive/components/tool-execution.ts:1:1)。
 
 默认情况下，工具输出会包装在 `Box` 中，由它处理背景和 `outputPad` 设置的水平内边距。工具渲染器也用于 HTML 导出。已定义的 `renderCall` 或 `renderResult` 必须返回 `Component`。如果未定义某个插槽的渲染器，`tool-execution.ts` 会对此插槽使用后备渲染。
 
@@ -2886,7 +2886,7 @@ if (confirmed) {
 }
 ```
 
-完整示例请参见 [examples/extensions/timed-confirm.ts](vscode://file//Users/xuzh/git/pi/packages/coding-agent/examples/extensions/timed-confirm.ts:1:1)。
+完整示例请参见 [examples/extensions/timed-confirm.ts](vscode://file/Users/Shared/pi-code/packages/coding-agent/examples/extensions/timed-confirm.ts:1:1)。
 
 ### 小组件、状态和页脚
 
@@ -3043,7 +3043,7 @@ pi.on("session_start", (_event, ctx) => {
 });
 ```
 
-一个使用 `gh issue list` 预加载最新未关闭 GitHub issue，并在本地筛选以快速补全 `#...` 的完整示例，请参见 [github-issue-autocomplete.ts](vscode://file//Users/xuzh/git/pi/packages/coding-agent/examples/extensions/github-issue-autocomplete.ts:1:1)。该示例需要 GitHub CLI（`gh`）和 GitHub 仓库检出目录。
+一个使用 `gh issue list` 预加载最新未关闭 GitHub issue，并在本地筛选以快速补全 `#...` 的完整示例，请参见 [github-issue-autocomplete.ts](vscode://file/Users/Shared/pi-code/packages/coding-agent/examples/extensions/github-issue-autocomplete.ts:1:1)。该示例需要 GitHub CLI（`gh`）和 GitHub 仓库检出目录。
 
 ### 自定义组件
 
@@ -3109,7 +3109,7 @@ const result = await ctx.ui.custom<string | null>(
 
 临时的非叠加层自定义 UI 关闭后，处于焦点且可见的叠加层可以重新接收输入。如果你希望叠加层保持可见时由另一个组件继续接收输入，请调用 `handle.unfocus({ target })`。传入 `{ target: null }` 会释放叠加层焦点，但不将焦点交给其他组件。
 
-完整 API 请参见 [`OverlayOptions` 和 `OverlayHandle`](vscode://file//Users/xuzh/git/pi/packages/tui/src/tui.ts:1:1)，示例请参见 [overlay-qa-tests.ts](vscode://file//Users/xuzh/git/pi/packages/coding-agent/examples/extensions/overlay-qa-tests.ts:1:1)。
+完整 API 请参见 [`OverlayOptions` 和 `OverlayHandle`](vscode://file/Users/Shared/pi-code/packages/tui/src/tui.ts:1:1)，示例请参见 [overlay-qa-tests.ts](vscode://file/Users/Shared/pi-code/packages/coding-agent/examples/extensions/overlay-qa-tests.ts:1:1)。
 
 ### 自定义编辑器
 
@@ -3161,7 +3161,7 @@ ctx.ui.setEditorComponent((tui, theme, keybindings) =>
 );
 ```
 
-带模式指示器的完整示例请参见 [modal-editor.ts](vscode://file//Users/xuzh/git/pi/packages/coding-agent/examples/extensions/modal-editor.ts:1:1)。
+带模式指示器的完整示例请参见 [modal-editor.ts](vscode://file/Users/Shared/pi-code/packages/coding-agent/examples/extensions/modal-editor.ts:1:1)。
 
 ### 消息和条目渲染
 

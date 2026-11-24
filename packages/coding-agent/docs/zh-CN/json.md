@@ -217,7 +217,7 @@ type JsonAgentSessionEvent =
     };
 ```
 
-从 `@earendil-works/pi-coding-agent` 导入导出的 `JsonAgentSessionEvent` 类型。实现位于 [`json-event.ts`](vscode://file//Users/xuzh/git/pi/packages/coding-agent/src/modes/json-event.ts:1:1)。
+从 `@earendil-works/pi-coding-agent` 导入导出的 `JsonAgentSessionEvent` 类型。实现位于 [`json-event.ts`](vscode://file/Users/Shared/pi-code/packages/coding-agent/src/modes/json-event.ts:1:1)。
 
 ## 示例
 

@@ -21,7 +21,7 @@ try {
 
 此示例使用当前工作目录、发现到的资源、已保存的设置和已配置的凭据。`prompt()` 会在运行结束后完成。
 
-[完整的最小示例](vscode://file//Users/xuzh/git/pi/packages/coding-agent/examples/sdk/01-minimal.ts:1:1)也会流式接收文本事件。所有 [SDK 示例](../../examples/sdk/)都会通过仓库的类型检查。
+[完整的最小示例](vscode://file/Users/Shared/pi-code/packages/coding-agent/examples/sdk/01-minimal.ts:1:1)也会流式接收文本事件。所有 [SDK 示例](../../examples/sdk/)都会通过仓库的类型检查。
 
 <a id="session-management"></a>
 
@@ -51,7 +51,7 @@ const { session } = await createAgentSession({
 });
 ```
 
-可查看经过类型检查的[会话示例](vscode://file//Users/xuzh/git/pi/packages/coding-agent/examples/sdk/11-sessions.ts:1:1)，了解如何创建、打开、继续、列出和分叉会话。[会话文件格式](session-format.md)定义持久化 JSONL 协议，[消息类型](message-types.md)定义记录中的值。若要查看精确的方法和签名，请使用导出的 TypeScript 声明或 [`session-manager.ts`](vscode://file//Users/xuzh/git/pi/packages/coding-agent/src/core/session-manager.ts:1:1)。
+可查看经过类型检查的[会话示例](vscode://file/Users/Shared/pi-code/packages/coding-agent/examples/sdk/11-sessions.ts:1:1)，了解如何创建、打开、继续、列出和分叉会话。[会话文件格式](session-format.md)定义持久化 JSONL 协议，[消息类型](message-types.md)定义记录中的值。若要查看精确的方法和签名，请使用导出的 TypeScript 声明或 [`session-manager.ts`](vscode://file/Users/Shared/pi-code/packages/coding-agent/src/core/session-manager.ts:1:1)。
 
 `cwd` 决定用于发现项目资源、上下文文件、会话分组和内置工具路径的工作区。当目标目录不同于 `process.cwd()` 时，请明确传入此值。
 
@@ -59,7 +59,7 @@ const { session } = await createAgentSession({
 
 `AgentSessionRuntime` 另外提供 `newSession()`、`switchSession()`、`fork()` 和 `importFromJsonl()`。每项操作都会替换活动的 `AgentSession`，并为目标工作目录重新创建服务。
 
-运行时替换后，订阅仍属于旧的 `AgentSession`，必须重新绑定。请参阅[会话运行时示例](vscode://file//Users/xuzh/git/pi/packages/coding-agent/examples/sdk/13-session-runtime.ts:1:1)。
+运行时替换后，订阅仍属于旧的 `AgentSession`，必须重新绑定。请参阅[会话运行时示例](vscode://file/Users/Shared/pi-code/packages/coding-agent/examples/sdk/13-session-runtime.ts:1:1)。
 
 ## 发送提示
 
@@ -115,28 +115,28 @@ try {
 
 <a id="codemode-mcp"></a>
 
-CLI 将 `codemode`、`tool_search` 和 MCP 作为内置扩展加载；SDK 会话不会自动加载它们。请把 `createCodemodeExtension()`、`createToolSearchExtension()` 和 `createMcpExtension()` 添加到 `DefaultResourceLoader` 的 `extensionFactories` 中。`codemode` 和 `tool_search` 注册时处于未启用状态：可通过 `defaultTools` 设置启用（`["+codemode", "+tool_search"]` 会保留其他默认工具），也可由 MCP 扩展自动启用：对暴露方式为 `codemode` 的服务器启用 `codemode`，对暴露方式为 `deferred` 的服务器启用 `tool_search`。MCP 扩展会在 `session_start` 时连接服务器，因此请调用 `session.bindExtensions()`。请参阅 [Codemode 和 MCP](vscode://file//Users/xuzh/git/pi/packages/coding-agent/examples/sdk/14-codemode-mcp.ts:1:1)。
+CLI 将 `codemode`、`tool_search` 和 MCP 作为内置扩展加载；SDK 会话不会自动加载它们。请把 `createCodemodeExtension()`、`createToolSearchExtension()` 和 `createMcpExtension()` 添加到 `DefaultResourceLoader` 的 `extensionFactories` 中。`codemode` 和 `tool_search` 注册时处于未启用状态：可通过 `defaultTools` 设置启用（`["+codemode", "+tool_search"]` 会保留其他默认工具），也可由 MCP 扩展自动启用：对暴露方式为 `codemode` 的服务器启用 `codemode`，对暴露方式为 `deferred` 的服务器启用 `tool_search`。MCP 扩展会在 `session_start` 时连接服务器，因此请调用 `session.bindExtensions()`。请参阅 [Codemode 和 MCP](vscode://file/Users/Shared/pi-code/packages/coding-agent/examples/sdk/14-codemode-mcp.ts:1:1)。
 
-请查看关于[模型](vscode://file//Users/xuzh/git/pi/packages/coding-agent/examples/sdk/02-custom-model.ts:1:1)、[工具](vscode://file//Users/xuzh/git/pi/packages/coding-agent/examples/sdk/05-tools.ts:1:1)、[扩展](vscode://file//Users/xuzh/git/pi/packages/coding-agent/examples/sdk/06-extensions.ts:1:1)和[完全控制](vscode://file//Users/xuzh/git/pi/packages/coding-agent/examples/sdk/12-full-control.ts:1:1)的专项示例。
+请查看关于[模型](vscode://file/Users/Shared/pi-code/packages/coding-agent/examples/sdk/02-custom-model.ts:1:1)、[工具](vscode://file/Users/Shared/pi-code/packages/coding-agent/examples/sdk/05-tools.ts:1:1)、[扩展](vscode://file/Users/Shared/pi-code/packages/coding-agent/examples/sdk/06-extensions.ts:1:1)和[完全控制](vscode://file/Users/Shared/pi-code/packages/coding-agent/examples/sdk/12-full-control.ts:1:1)的专项示例。
 
 ## 示例
 
 | 示例 | 用途 |
 |---|---|
-| [最小示例](vscode://file//Users/xuzh/git/pi/packages/coding-agent/examples/sdk/01-minimal.ts:1:1) | 创建会话、发送提示、观察结果并释放会话 |
-| [自定义模型](vscode://file//Users/xuzh/git/pi/packages/coding-agent/examples/sdk/02-custom-model.ts:1:1) | 选择模型和思考等级 |
-| [系统提示](vscode://file//Users/xuzh/git/pi/packages/coding-agent/examples/sdk/03-custom-prompt.ts:1:1) | 替换系统提示或在其后追加内容 |
-| [技能](vscode://file//Users/xuzh/git/pi/packages/coding-agent/examples/sdk/04-skills.ts:1:1) | 发现、筛选并添加技能 |
-| [工具](vscode://file//Users/xuzh/git/pi/packages/coding-agent/examples/sdk/05-tools.ts:1:1) | 选择内置工具及其工作目录 |
-| [扩展](vscode://file//Users/xuzh/git/pi/packages/coding-agent/examples/sdk/06-extensions.ts:1:1) | 加载基于文件的扩展和内联扩展 |
-| [上下文文件](vscode://file//Users/xuzh/git/pi/packages/coding-agent/examples/sdk/07-context-files.ts:1:1) | 添加或替换项目指令 |
-| [提示模板](vscode://file//Users/xuzh/git/pi/packages/coding-agent/examples/sdk/08-prompt-templates.ts:1:1) | 添加文件式提示模板 |
-| [凭据](vscode://file//Users/xuzh/git/pi/packages/coding-agent/examples/sdk/09-api-keys-and-oauth.ts:1:1) | 配置凭据和模型存储 |
-| [设置](vscode://file//Users/xuzh/git/pi/packages/coding-agent/examples/sdk/10-settings.ts:1:1) | 提供基于文件或内存的设置 |
-| [会话](vscode://file//Users/xuzh/git/pi/packages/coding-agent/examples/sdk/11-sessions.ts:1:1) | 控制会话持久化与恢复 |
-| [完全控制](vscode://file//Users/xuzh/git/pi/packages/coding-agent/examples/sdk/12-full-control.ts:1:1) | 替换默认发现功能和状态服务 |
-| [会话运行时](vscode://file//Users/xuzh/git/pi/packages/coding-agent/examples/sdk/13-session-runtime.ts:1:1) | 安全替换活动会话 |
-| [Codemode 和 MCP](vscode://file//Users/xuzh/git/pi/packages/coding-agent/examples/sdk/14-codemode-mcp.ts:1:1) | 添加 `codemode`、`tool_search` 和 MCP 扩展 |
+| [最小示例](vscode://file/Users/Shared/pi-code/packages/coding-agent/examples/sdk/01-minimal.ts:1:1) | 创建会话、发送提示、观察结果并释放会话 |
+| [自定义模型](vscode://file/Users/Shared/pi-code/packages/coding-agent/examples/sdk/02-custom-model.ts:1:1) | 选择模型和思考等级 |
+| [系统提示](vscode://file/Users/Shared/pi-code/packages/coding-agent/examples/sdk/03-custom-prompt.ts:1:1) | 替换系统提示或在其后追加内容 |
+| [技能](vscode://file/Users/Shared/pi-code/packages/coding-agent/examples/sdk/04-skills.ts:1:1) | 发现、筛选并添加技能 |
+| [工具](vscode://file/Users/Shared/pi-code/packages/coding-agent/examples/sdk/05-tools.ts:1:1) | 选择内置工具及其工作目录 |
+| [扩展](vscode://file/Users/Shared/pi-code/packages/coding-agent/examples/sdk/06-extensions.ts:1:1) | 加载基于文件的扩展和内联扩展 |
+| [上下文文件](vscode://file/Users/Shared/pi-code/packages/coding-agent/examples/sdk/07-context-files.ts:1:1) | 添加或替换项目指令 |
+| [提示模板](vscode://file/Users/Shared/pi-code/packages/coding-agent/examples/sdk/08-prompt-templates.ts:1:1) | 添加文件式提示模板 |
+| [凭据](vscode://file/Users/Shared/pi-code/packages/coding-agent/examples/sdk/09-api-keys-and-oauth.ts:1:1) | 配置凭据和模型存储 |
+| [设置](vscode://file/Users/Shared/pi-code/packages/coding-agent/examples/sdk/10-settings.ts:1:1) | 提供基于文件或内存的设置 |
+| [会话](vscode://file/Users/Shared/pi-code/packages/coding-agent/examples/sdk/11-sessions.ts:1:1) | 控制会话持久化与恢复 |
+| [完全控制](vscode://file/Users/Shared/pi-code/packages/coding-agent/examples/sdk/12-full-control.ts:1:1) | 替换默认发现功能和状态服务 |
+| [会话运行时](vscode://file/Users/Shared/pi-code/packages/coding-agent/examples/sdk/13-session-runtime.ts:1:1) | 安全替换活动会话 |
+| [Codemode 和 MCP](vscode://file/Users/Shared/pi-code/packages/coding-agent/examples/sdk/14-codemode-mcp.ts:1:1) | 添加 `codemode`、`tool_search` 和 MCP 扩展 |
 
 <a id="exports"></a>
 
