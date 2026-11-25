@@ -124,6 +124,7 @@ function buildRules(
 	return rules.map((rule) => `- ${rule}`).join("\n");
 }
 
+// PI-READ：组装系统提示的各部分，包括工具说明、项目上下文、Skill 描述和工作目录。
 /** Build the ordered, independently replaceable sections of the structured system prompt. */
 export function buildSystemPromptSections(input: BuildSystemPromptOptions): SystemPromptSections {
 	const options = normalizeBuildSystemPromptOptions(input);

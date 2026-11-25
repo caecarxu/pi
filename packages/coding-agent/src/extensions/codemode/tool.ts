@@ -234,6 +234,7 @@ export function createCodemodeDescription(
 	tools: readonly AgentTool<any>[],
 	options: CodemodeDescriptionOptions = {},
 ): string {
+	// PI-READ：把可调用工具整理成模型可读的目录；过预算的工具可以由脚本再通过 searchTools/describeTool 查询。
 	const declarations = getCodemodeCallableTools(tools)
 		.filter((tool) => !options.deferred?.has(tool.name))
 		.map((tool) => toCodemodeDeclaration(tool, options.guidelines?.get(tool.name)));
@@ -378,6 +379,7 @@ function prepareCodemodeLoadout(loadout: ToolLoadout, options: CodemodeToolOptio
 			if (callableNames.has(tool.name)) descriptions[tool.name] = describeScriptCall(tool);
 		}
 	}
+	// PI-READ：mode=only 时目录列出所有可调用工具；mode=on 时只列出非 direct 工具，避免重复声明。
 	const listed = mode === "only" ? callable : callable.filter((tool) => !isDirect(tool));
 	const namespaces = new Map(
 		listed.flatMap((tool) => {
@@ -429,13 +431,14 @@ export function createCodemodeToolDefinition(
 		promptSnippet: codemodeToolSystemPromptContribution.snippet,
 		promptGuidelines: [...codemodeToolSystemPromptContribution.guidelines],
 		parameters: codemodeSchema,
-		// Scripts must not start other scripts.
+		// PI-READ：codemode 只能由模型直接调用，不能被脚本作为嵌套工具再次启动。
 		exposure: "model-only",
 		prepareLoadout: (loadout) => prepareCodemodeLoadout(loadout, options),
+		// PI-READ：声明脚本可能触达的工具名，让 MCP 工具在脚本运行前有机会完成注册。
 		reachesTools: (input) => getScriptReach(input.code),
 		// Capable models write the script as raw text instead of a JSON-escaped string.
 		constrainedSampling: { type: "grammar", variants: { openai_lark: CODEMODE_SOURCE_GRAMMAR } },
-		// The sandbox (worker, QuickJS wasm) loads on the first call, not at startup.
+		// PI-READ：首次真正调用时才加载沙箱执行器，避免启动 Pi 时预加载 worker/QuickJS。
 		execute: async (toolCallId, params, signal, onUpdate, ctx) =>
 			(await loadCodemodeExecutor()).executeCodemode(toolCallId, params, signal, onUpdate, ctx, options),
 		...codemodeRenderers,
@@ -453,6 +456,7 @@ export function createCodemodeTool(
 	const definition = createCodemodeToolDefinition(options);
 	const tool = wrapToolDefinition(definition);
 	Object.assign(tool, {
+		// PI-READ：AgentTool 上的描述与 loadout 中的模型描述保持一致，并附带工具使用指南。
 		description: createCodemodeDescription(tools, { models: options.models === true }),
 		promptSnippet: definition.promptSnippet,
 		promptGuidelines: definition.promptGuidelines,

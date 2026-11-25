@@ -188,6 +188,9 @@ function getDefaultAgentDir(): string {
  * });
  * ```
  */
+// PI-READ：会话初始化主线：准备运行环境 → 投影当前分支并恢复消息 → 确定模型、思考级别和工具 →
+// 创建底层 Agent → 写入必要的会话设置记录 → 创建 AgentSession。重点观察 existingSession.messages
+// 如何进入 Agent 的 initialState；这里创建的是会话，模型请求在后续运行时才发起。
 export async function createAgentSession(options: CreateAgentSessionOptions = {}): Promise<CreateAgentSessionResult> {
 	const cwd = resolvePath(options.cwd ?? options.sessionManager?.getCwd() ?? process.cwd());
 	const agentDir = options.agentDir ? resolvePath(options.agentDir) : getDefaultAgentDir();

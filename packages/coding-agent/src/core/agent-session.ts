@@ -849,6 +849,7 @@ export class AgentSession {
 		return { ...context, messages: this.sessionManager.buildSessionProjection().messages };
 	}
 
+	// PI-READ：安装请求准备回调，每次请求前用当前会话分支投影更新消息，并处理模型路由。
 	private _installAgentRequestProjection(): void {
 		const previousPrepareRequest = this.agent.prepareRequest;
 		this.agent.prepareRequest = async (request, signal) => {
@@ -2210,6 +2211,7 @@ export class AgentSession {
 		if (trigger) await this._startRun(trigger, () => preflightResult?.("started"));
 	}
 
+	// PI-READ：输入先经过扩展处理和模板展开；运行中入队，否则校验模型和认证后构造用户输入。
 	/**
 	 * Run input hooks, expand templates, queue while streaming, and validate model and auth.
 	 * Returns the run trigger, or undefined when the prompt was handled or queued.

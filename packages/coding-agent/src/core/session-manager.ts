@@ -465,6 +465,7 @@ export function sessionEntryToContextMessages(entry: SessionEntry): AgentMessage
 	return [];
 }
 
+// PI-READ：沿当前叶子回溯活动分支；若有压缩，只保留最新压缩摘要及之后需要的条目。
 /**
  * Build the active, compaction-aware session entry list.
  *

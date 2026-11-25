@@ -743,6 +743,7 @@ async function loadExtensionsInternal(
 	};
 }
 
+// PI-READ：扩展加载入口；实际加载和注册过程由 loadExtensionsInternal 完成。
 export async function loadExtensions(
 	paths: string[],
 	cwd: string,
